@@ -1,0 +1,48 @@
+.container{
+  background: var(--bg);
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem;
+}
+.card {
+  padding: 1.5rem;
+  /* width: 40rem; */
+  margin-bottom: 1.5rem;
+  background: white;
+  border-radius: 0.5rem;
+}
+.card__title {
+  display: flex;
+  align-items: center;
+  /* background: var(--bg-light); */
+  padding: 1rem;
+}
+.card__title h1 {
+  flex: 1;
+  font-size: 1.8rem;
+  color: var(--secondary);
+}
+.card__title img {
+  width: 2rem;
+}
+.card__title img:hover {
+  cursor: pointer;
+}
+
+.card__details {
+  display: flex;
+  /* background: rgb(236, 158, 158); */
+  margin: 0.1rem;
+}
+.card__details p {
+  font-size: 1.4rem;
+  flex: 1;
+  padding: 1rem;
+  color: gray;
+  /* background: rgb(236, 158, 158); */
+}
+.card__details span {
+  font-size: 1.4rem;
+  flex: 9;
+  padding: 1rem;
+}

@@ -1,22 +1,50 @@
-.container{
-  background: var(--bg);
-  width: 100%;
+.container {
   height: 100%;
-  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
 }
-.title {
-  background: var(--bg-dark);
-  padding: 1.5rem;
+.quizform {
+  background: white;
+  /* width: 80%; */
+  /* height: 80%; */
+  padding: 1.5rem 5rem 5rem;
+  border-radius: 0.5rem;
 }
-.title p {
+.quizform h1 {
+  text-align: center;
+  color: var(--dark);
   font-size: var(--body-text);
+  margin-bottom: 3rem;
 }
-.form__container {
-  background: var(--bg-light);
-  padding: 3.5rem 1.5rem;
+.quizform label {
+  font-size: 1.4rem;
+  color: gray;
 }
-.form__container form{
-    display: flex;
-    flex-direction: column;
-   align-items: center;
+.dropdown{
+  margin-top: 1rem;
+  margin-bottom: 2.6rem;
+  width: 40rem;
+  /* height: 4rem; */
+  font-size: 1.4rem;
+}
+
+.input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 2.6rem;
+}
+.input input {
+  /* margin-right: 5rem; */
+  width: 6rem;
+  cursor: pointer;
+  padding: 0.6rem 2rem;
+  border-radius: 1rem;
+  border: none;
+}
+.active {
+  background: rgb(245, 164, 164);
 }

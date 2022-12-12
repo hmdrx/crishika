@@ -1,11 +1,17 @@
 import { Link, NavLink, Outlet } from 'react-router-dom';
+import { AiFillHome } from 'react-icons/ai';
+
 import classes from './Layout.module.css';
 
 const Layout = () => {
   return (
     <div className={classes.container}>
       <div className={classes.left}>
+      <Link to="/dashboard" className={classes.home_nav}>
+              <AiFillHome className={classes.icon}  />
+            </Link>
         <div className={classes.profile}>
+
           <div className={classes.profile__image}>
             <img
               src={require('../../Assests/Images/Humendra.JPG')}
@@ -15,15 +21,12 @@ const Layout = () => {
           <h1>Humendra</h1>
         </div>
         <div className={classes.menu}>
-          <li>
+          {/* <li>
             <Link to="/dashboard" className={classes.home_nav}>
-              <img
-                src={require('../../Assests/Icons/diagram.png')}
-                alt="quiz_icon"
-              />
+              <AiFillHome className={classes.icon}  />
             </Link>
-          </li>
-          <li>
+          </li> */}
+          {/* <li>
             <NavLink
               to="report"
               className={({ isActive }) =>
@@ -33,10 +36,10 @@ const Layout = () => {
               <img
                 src={require('../../Assests/Icons/diagram.png')}
                 alt="quiz_icon"
-              />
+              />  
               Performance
             </NavLink>
-          </li>
+          </li> */}
           <li>
             <NavLink
               to="exam_exercise"
@@ -48,7 +51,7 @@ const Layout = () => {
                 src={require('../../Assests/Icons/quiz.png')}
                 alt="quiz_icon"
               />
-              MCQ's Exercise
+              Crishika test
             </NavLink>
           </li>
           <li>

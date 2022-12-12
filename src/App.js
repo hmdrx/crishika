@@ -12,6 +12,8 @@ import ContactUs from './pages/LandingPage/ContactUs';
 import AboutUs from './pages/LandingPage/AboutUs';
 
 import Login from './pages/Auth/Login';
+import UpdatePassword from './components/UpdatePassword';
+import ResetPassword from './components/ResetPassword';
 
 function App() {
   return (
@@ -24,10 +26,13 @@ function App() {
           <Route path="contact" element={<ContactUs />} />
         </Route>
         <Route path="dashboard" element={<Layout />}>
-          <Route path="report" element={<Performance />} />
+          <Route index element={<Performance />} />
           <Route path="exam_exercise" element={<BeforeQuiz />} />
           <Route path="account_details" element={<AccountDetails />} />
-          <Route path="password_settings" element={<PasswordSettings />} />
+          <Route path="password_settings" element={<PasswordSettings />}>
+            <Route index element={<UpdatePassword />} />
+            <Route path="reset" element={<ResetPassword />} />
+          </Route>
           <Route path="logout" element={<AccountDetails />} />
         </Route>
 

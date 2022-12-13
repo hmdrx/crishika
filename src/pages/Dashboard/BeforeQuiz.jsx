@@ -28,7 +28,7 @@ const BeforeQuiz = () => {
         <div className={classes.inputs}>
           <div>
             <label>Select subject</label>
-            <Dropdown className={classes.dropdown}  options={options} />
+            <Dropdown className={classes.dropdown} options={options} />
           </div>
           <div>
             <label htmlFor="ques">Question</label>

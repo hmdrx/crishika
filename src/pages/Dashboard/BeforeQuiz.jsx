@@ -1,18 +1,8 @@
 import { useState } from 'react';
-import Dropdown from 'react-dropdown';
-import 'react-dropdown/style.css';
 import Button from '../../components/UI/Button';
 import classes from './BeforeQuiz.module.css';
 
-const options = [
-  '---Subject---',
-  'Agronomy',
-  'Biotechnology',
-  'Biochemistry',
-  'Pathology',
-  'Economics',
-  'Meteorology',
-];
+
 
 const BeforeQuiz = () => {
   const [isActive, setIsActive] = useState();
@@ -28,7 +18,6 @@ const BeforeQuiz = () => {
         <div className={classes.inputs}>
           <div>
             <label>Select subject</label>
-            <Dropdown className={classes.dropdown} options={options} />
           </div>
           <div>
             <label htmlFor="ques">Question</label>

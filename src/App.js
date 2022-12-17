@@ -14,31 +14,52 @@ import AboutUs from './pages/LandingPage/AboutUs';
 import Login from './pages/Auth/Login';
 import UpdatePassword from './components/UpdatePassword';
 import ResetPassword from './components/ResetPassword';
+import { createTheme, ThemeProvider } from '@mui/material';
+import SignUp from './pages/Auth/SignUp';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#25bf77',
+      contrastText: '#fff',
+    },
+    secondary: {
+      main: '#da4088',
+      contrastText: '#fff',
+    }
+  },
+  typography: {
+    htmlFontSize: 10,
+  },
+});
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Base />}>
-          <Route index element={<Home />} />
-          <Route path="pricing" element={<Pricing />} />
-          <Route path="about_us" element={<AboutUs />} />
-          <Route path="contact" element={<ContactUs />} />
-        </Route>
-        <Route path="dashboard" element={<Layout />}>
-          <Route index element={<Performance />} />
-          <Route path="exam_exercise" element={<BeforeQuiz />} />
-          <Route path="account_details" element={<AccountDetails />} />
-          <Route path="password_settings" element={<PasswordSettings />}>
-            <Route index element={<UpdatePassword />} />
-            <Route path="reset" element={<ResetPassword />} />
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Base />}>
+            <Route index element={<Home />} />
+            <Route path="pricing" element={<Pricing />} />
+            <Route path="about_us" element={<AboutUs />} />
+            <Route path="contact" element={<ContactUs />} />
           </Route>
-          <Route path="logout" element={<AccountDetails />} />
-        </Route>
+          <Route path="dashboard" element={<Layout />}>
+            <Route index element={<Performance />} />
+            <Route path="exam_exercise" element={<BeforeQuiz />} />
+            <Route path="account_details" element={<AccountDetails />} />
+            <Route path="password_settings" element={<PasswordSettings />}>
+              <Route index element={<UpdatePassword />} />
+              <Route path="reset" element={<ResetPassword />} />
+            </Route>
+            <Route path="logout" element={<AccountDetails />} />
+          </Route>
 
-        <Route path="login" element={<Login />} />
-      </Routes>
-    </BrowserRouter>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<SignUp />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

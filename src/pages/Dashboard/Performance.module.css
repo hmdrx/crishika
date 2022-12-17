@@ -20,7 +20,8 @@
   justify-content: space-evenly;
 }
 .overall-report__card {
-  width: 12rem;
+  /* width: 12rem; */
+  width: 6rem;
   display: flex;
   flex-direction: column;
   border-radius: 0.5rem;

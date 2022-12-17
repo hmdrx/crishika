@@ -1,107 +1,147 @@
-import { Link, NavLink, Outlet } from 'react-router-dom';
-import { AiFillHome } from 'react-icons/ai';
+import { Outlet } from 'react-router-dom';
+import Drawer from '@mui/material/Drawer';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+import { AppBar, Box, CssBaseline, Typography } from '@mui/material';
 
-import classes from './Layout.module.css';
+import myProfileImage from '../../Assests/Images/logo-512.png';
+import HomeIcon from '@mui/icons-material/Home';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import { colors } from '../../constants/colors';
+
+const drawerWidth = 240;
 
 const Layout = () => {
   return (
-    <div className={classes.container}>
-      <div className={classes.left}>
-      <Link to="/dashboard" className={classes.home_nav}>
-              <AiFillHome className={classes.icon}  />
-            </Link>
-        <div className={classes.profile}>
-
-          <div className={classes.profile__image}>
-            <img
-              src={require('../../Assests/Images/Humendra.JPG')}
-              alt="profile"
-            />
-          </div>
-          <h1>Humendra</h1>
-        </div>
-        <div className={classes.menu}>
-          {/* <li>
-            <Link to="/dashboard" className={classes.home_nav}>
-              <AiFillHome className={classes.icon}  />
-            </Link>
-          </li> */}
-          {/* <li>
-            <NavLink
-              to="report"
-              className={({ isActive }) =>
-                isActive ? classes['navlink-active'] : classes.navlink
-              }
-            >
-              <img
-                src={require('../../Assests/Icons/diagram.png')}
-                alt="quiz_icon"
-              />  
-              Performance
-            </NavLink>
-          </li> */}
-          <li>
-            <NavLink
-              to="exam_exercise"
-              className={({ isActive }) =>
-                isActive ? classes['navlink-active'] : classes.navlink
-              }
-            >
-              <img
-                src={require('../../Assests/Icons/quiz.png')}
-                alt="quiz_icon"
-              />
-              Crishika test
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="account_details"
-              className={({ isActive }) =>
-                isActive ? classes['navlink-active'] : classes.navlink
-              }
-            >
-              <img
-                src={require('../../Assests/Icons/account.png')}
-                alt="quiz_icon"
-              />
-              Account details
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="password_settings"
-              className={({ isActive }) =>
-                isActive ? classes['navlink-active'] : classes.navlink
-              }
-            >
-              <img
-                src={require('../../Assests/Icons/lock.png')}
-                alt="quiz_icon"
-              />
-              Password settings
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="logout"
-              className={({ isActive }) =>
-                isActive ? classes['navlink-active'] : classes.navlink
-              }
-            >
-              <img
-                src={require('../../Assests/Icons/logout.png')}
-                alt="quiz_icon"
-              />
-              Logout
-            </NavLink>
-          </li>
-        </div>
-      </div>
-      <div className={classes.right}>
-        <Outlet />
-      </div>
-    </div>
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        sx={{
+          width: `calc(100% - ${drawerWidth}px)`,
+          ml: `${drawerWidth}px`,
+          color: 'gray',
+          boxShadow: 0,
+          bgcolor: colors.bg
+          
+         
+        }}
+      >
+        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+          >
+            Permanent drawer
+          </Typography>
+          <NotificationsIcon
+            sx={{
+              '&:hover': {
+                cursor: 'pointer',
+                opacity: 0.7,
+              },
+            }}
+          />
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+            bgcolor: 'primary.main',
+          },
+        }}
+        variant="permanent"
+        anchor="left"
+      >
+        <Toolbar sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+          <Box
+            sx={{
+              width: '14rem',
+              height: '14rem',
+              borderRadius: '8rem',
+              overflow: 'hidden',
+              border: '1px solid white',
+            }}
+          >
+            <Box sx={{ width: 1 }} component="img" src={myProfileImage} />
+          </Box>
+          <Typography variant="h6" color="white">
+            Humendra
+          </Typography>
+        </Toolbar>
+        <Divider />
+        <List>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon sx={{ color: 'white' }}>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Overview'} sx={{ color: 'white' }} />
+            </ListItemButton>
+          </ListItem>
+        </List>
+        <Divider />
+        <List>
+          {['Start Test', 'Performance'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon sx={{ color: 'white' }}>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} sx={{ color: 'white' }} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['Account Details', 'Password Settings'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon sx={{ color: 'white' }}>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} sx={{ color: 'white' }} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['Logout'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon sx={{ color: 'white' }}>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} sx={{ color: 'white' }} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
+      >
+        <Toolbar />
+        <Box>
+          <Outlet />
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import BeforeQuiz from './pages/Dashboard/BeforeQuiz';
 import Layout from './pages/Dashboard/Layout';
-import Performance from './pages/Dashboard/Performance';
+import Performance from './pages/Dashboard/Performance/Index';
 import AccountDetails from './pages/Dashboard/AccountDetails';
 import PasswordSettings from './pages/Dashboard/PasswordSettings';
 import Home from './pages/LandingPage/Home';
@@ -16,6 +16,7 @@ import UpdatePassword from './components/UpdatePassword';
 import ResetPassword from './components/ResetPassword';
 import { createTheme, ThemeProvider } from '@mui/material';
 import SignUp from './pages/Auth/SignUp';
+import ResponsiveDrawer from './test/Drawer'
 
 const theme = createTheme({
   palette: {
@@ -57,6 +58,7 @@ function App() {
 
           <Route path="login" element={<Login />} />
           <Route path="register" element={<SignUp />} />
+          <Route path="drawer" element={<ResponsiveDrawer />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

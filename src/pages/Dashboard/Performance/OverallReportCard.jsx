@@ -8,15 +8,16 @@ const OverallReportCard = () => {
         textAlign: 'center',
         color: 'gray',
         overflow: 'hidden',
-        m:1
+        m:'0.5rem',p:1
+        // maxWidth: 
       }}
     >
-      <Box sx={{ p: 2 }}>
-        <Typography variant="h4">1023</Typography>
+      <Box >
+        <Typography variant="h6">1023</Typography>
       </Box>
       <Divider />
-      <Box sx={{ p: 2 }}>
-        <Typography variant="body1" sx={{ minHeight: '6rem' }}>
+      <Box >
+        <Typography variant="body2">
           Total questions
         </Typography>
       </Box>

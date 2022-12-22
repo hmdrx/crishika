@@ -10,7 +10,7 @@ import { useState } from 'react';
 import Auth from './Auth';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
-const icon = require('../../Assests/Images/login.png');
+const icon = require('../../assets/images/login.png');
 const greetingText = 'Welcome back!';
 
 const Login = () => {

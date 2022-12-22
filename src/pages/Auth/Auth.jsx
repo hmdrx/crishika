@@ -1,16 +1,19 @@
 import React from 'react';
 import {
   Box,
+  Container,
   Divider,
   Typography,
 } from '@mui/material';
 import { Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
-const logo = require('../../Assests/Images/logo-512.png');
+const logo = require('../../assets/images/logo-512.png');
 
 
 const Auth = ({icon, greetingText, link, linkText, children}) => {
   return (
+    <Container disableGutters >
+
     <Box
       sx={{
         minHeight: '100vh',
@@ -58,6 +61,8 @@ const Auth = ({icon, greetingText, link, linkText, children}) => {
         </Stack>
       </Stack>
     </Box>
+    </Container>
+
   );
 };
 

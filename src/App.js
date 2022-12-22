@@ -1,22 +1,24 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import BeforeQuiz from './pages/Dashboard/BeforeQuiz';
+import BeforeQuiz from './pages/Dashboard/Quiz/BeforeQuiz';
 import Layout from './pages/Dashboard/Layout';
 import Performance from './pages/Dashboard/Performance/Index';
-import AccountDetails from './pages/Dashboard/AccountDetails';
-import PasswordSettings from './pages/Dashboard/PasswordSettings';
-import Home from './pages/LandingPage/Home';
+import AccountDetails from './pages/Dashboard/Account/AccountDetails';
+import PasswordSettings from './pages/Dashboard/PasswordSettings/PasswordSettings';
+import Home from './pages/LandingPage/Home/Home';
 import Base from './pages/LandingPage/Base';
 import Pricing from './pages/LandingPage/Pricing';
 import ContactUs from './pages/LandingPage/ContactUs';
 import AboutUs from './pages/LandingPage/AboutUs';
 
 import Login from './pages/Auth/Login';
-import UpdatePassword from './components/UpdatePassword';
-import ResetPassword from './components/ResetPassword';
+import UpdatePassword from './pages/Dashboard/PasswordSettings/UpdatePassword';
+import ResetPassword from './pages/Dashboard/PasswordSettings/ResetPassword';
 import { createTheme, ThemeProvider } from '@mui/material';
 import SignUp from './pages/Auth/SignUp';
 import ResponsiveDrawer from './test/Drawer'
+import Quiz from './pages/Dashboard/Quiz/Quiz';
+import Report from './pages/Dashboard/Report/Report';
 
 const theme = createTheme({
   palette: {
@@ -59,6 +61,8 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<SignUp />} />
           <Route path="drawer" element={<ResponsiveDrawer />} />
+          <Route path="quiz" element={<Quiz />} />
+          <Route path="report" element={<Report />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

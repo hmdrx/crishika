@@ -16,7 +16,7 @@ const Header = () => {
             >
               <img
                 id={classes.logo}
-                src={require('../../Assests/Images/logo-512.png')}
+                src={require('../../assets/images/logo-512.png')}
                 alt="crishika logo"
               />
             </Link>

@@ -128,14 +128,12 @@ const Layout = props => {
       <AppBar
         position="fixed"
         sx={{
-          width: `calc(100% - ${drawerWidth}px)`,
-          ml: `${drawerWidth}px`,
-          color: 'gray',
-          boxShadow: 0,
-          bgcolor: colors.bg,
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          ml: { sm: `${drawerWidth}px` },
+          bgcolor: colors.secondary
         }}
       >
-        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Toolbar sx={{display: 'flex'}} >
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -146,16 +144,9 @@ const Layout = props => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Permanent drawer
+            Responsive drawer
           </Typography>
-          <NotificationsIcon
-            sx={{
-              '&:hover': {
-                cursor: 'pointer',
-                opacity: 0.7,
-              },
-            }}
-          />
+          <NotificationsIcon sx={{marginLeft: 'auto'}} />
         </Toolbar>
       </AppBar>
       <Box
@@ -200,14 +191,11 @@ const Layout = props => {
         component="main"
         sx={{
           flexGrow: 1,
-          p: 3,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
         <Toolbar />
-        <Box>
-          <Outlet />
-        </Box>
+        <Outlet />
       </Box>
     </Box>
   );

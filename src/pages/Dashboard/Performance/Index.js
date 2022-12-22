@@ -1,4 +1,5 @@
-import { Box, Container, Stack, Typography } from '@mui/material';
+import { Box, Container, Grid, Typography } from '@mui/material';
+import { colors } from '../../../constants/colors';
 import { cards } from '../../../data/data';
 import OverallReportCard from './OverallReportCard';
 import SubReportCard from './SubReportCard';
@@ -6,26 +7,35 @@ import SubReportCard from './SubReportCard';
 const Performance = () => {
   return (
     <Box>
-      <Container sx={{p:2}}>
+      <Container sx={{ p: 2, bgcolor: colors.bg }}>
         <Typography sx={{ textAlign: 'center' }} variant="body1">
           Overall Performance
         </Typography>
-        <Stack direction="row" flexWrap="wrap" justifyContent="space-evenly">
+
+        <Grid container>
           {cards.map(el => {
-            return <OverallReportCard />;
+            return (
+              <Grid item xs={4} md={2}>
+                <OverallReportCard />
+              </Grid>
+            );
           })}
-        </Stack>
+        </Grid>
       </Container>
-      <Container sx={{p:2}} >
+      <Container sx={{ p: 2 }}>
         <Typography sx={{ textAlign: 'center' }} variant="body1">
           Subject Wise Report
         </Typography>
 
-        <Stack direction="row" flexWrap="wrap" justifyContent="space-evenly">
+        <Grid container columnSpacing={1}>
           {cards.map(el => {
-            return <SubReportCard />;
+            return (
+              <Grid item xs={6} md={3}>
+                <SubReportCard />
+              </Grid>
+            );
           })}
-        </Stack>
+        </Grid>
       </Container>
     </Box>
   );

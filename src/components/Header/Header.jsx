@@ -1,75 +1,52 @@
+import { Box, Button, Container, Stack } from '@mui/material';
 import { Link, NavLink } from 'react-router-dom';
-import Button from '../UI/Button';
 import classes from './Header.module.css';
+import logo from '../../assets/images/logo-512.png';
+// import { colors } from '../../constants/colors';
+
+const tabsNameAndLink = [
+  { tabName: 'Pricing', link: 'pricing' },
+  { tabName: 'About Us', link: 'about_us' },
+  { tabName: 'Contact', link: 'contact' },
+];
 
 const Header = () => {
   return (
-    <div className={classes.container}>
-      <div className={classes.container__left}>
-        <ul>
-          <li>
-            <Link
-              to="/"
-              className={({ isActive }) =>
-                isActive ? classes['navlink-active'] : classes.navlink
-              }
-            >
-              <img
-                id={classes.logo}
-                src={require('../../assets/images/logo-512.png')}
-                alt="crishika logo"
+    <Box sx={{ bgcolor: '#25bf7770', display: { xs: 'none', md: 'block' } }}>
+      <Container>
+        <Stack
+          sx={{ pt: 2 }}
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Stack direction="row" alignItems="center">
+            <Link to="/">
+              <Box
+                sx={{ maxWidth: '5rem' }}
+                component="img"
+                src={logo}
+                alt="logo"
               />
             </Link>
-          </li>
-          <li>
-            <NavLink
-              to="pricing"
-              className={({ isActive }) =>
-                isActive ? classes['navlink-active'] : classes.navlink
-              }
-            >
-              Pricing
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="about_us"
-              className={({ isActive }) =>
-                isActive ? classes['navlink-active'] : classes.navlink
-              }
-            >
-              About Us
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="contact"
-              className={({ isActive }) =>
-                isActive ? classes['navlink-active'] : classes.navlink
-              }
-            >
-              Contact
-            </NavLink>
-          </li>
-        </ul>
-      </div>
-      <div className={classes.container__right}>
-        <ul>
-          <li>
-            <Link to="login">
-              <Button
-                // style={{
-                //   background: 'transparent',
-                //   color: 'var(--dark)',
-                // }}
-              >
-                Login
-              </Button>
-            </Link>
-          </li>
-        </ul>
-      </div>
-    </div>
+            {tabsNameAndLink.map(el => {
+              return (
+                <NavLink
+                  to={el.link}
+                  key={el.link + Math.random()}
+                  className={({ isActive }) =>
+                    isActive ? classes['navlink-active'] : classes.navlink
+                  }
+                >
+                  {el.tabName}
+                </NavLink>
+              );
+            })}
+          </Stack>
+          <Button variant="outlined">Login</Button>
+        </Stack>
+      </Container>
+    </Box>
   );
 };
 

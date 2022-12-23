@@ -16,7 +16,7 @@ import UpdatePassword from './pages/Dashboard/PasswordSettings/UpdatePassword';
 import ResetPassword from './pages/Dashboard/PasswordSettings/ResetPassword';
 import { createTheme, ThemeProvider } from '@mui/material';
 import SignUp from './pages/Auth/SignUp';
-import ResponsiveDrawer from './test/Drawer'
+import ResponsiveDrawer from './test/Drawer';
 import Quiz from './pages/Dashboard/Quiz/Quiz';
 import Report from './pages/Dashboard/Report/Report';
 
@@ -29,10 +29,18 @@ const theme = createTheme({
     secondary: {
       main: '#da4088',
       contrastText: '#fff',
-    }
+    },
   },
   typography: {
     htmlFontSize: 10,
+    fontFamily: [
+      'Ubuntu',
+      'Cantarell',
+      'Fira Sans',
+      'Droid Sans',
+      'Helvetica Neue',
+      'sans-serif',
+    ].join(','),
   },
 });
 

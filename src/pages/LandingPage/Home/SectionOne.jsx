@@ -4,18 +4,22 @@ const SectionOne = () => {
   return (
     <Container>
       <Stack
-        direction="row"
+        direction={{ md: 'row' }}
         justifyContent="space-between"
         alignItems="center"
-        sx={{ py: 6}}
+        sx={{ py: 6 }}
       >
         <Box>
-          <Typography variant='h6' component='h6' >Our most powerful engine to date</Typography>
-          <Typography sx={{mb: 2}} variant='body1' component='p'>
+          <Typography variant="h6" component="h6">
+            Our most powerful engine to date
+          </Typography>
+          <Typography sx={{ mb: 2 }} variant="body1" component="p">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque,
             odit?
           </Typography>
-          <Button size='small' variant='outlined' >Our portfolio</Button>
+          <Button size="small" variant="outlined">
+            Our portfolio
+          </Button>
         </Box>
         <Box
           sx={{ width: '24rem' }}

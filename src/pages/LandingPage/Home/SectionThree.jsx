@@ -4,8 +4,14 @@ const SectionThree = () => {
   return (
     <Container>
       <Box sx={{ py: 6 }}>
-        <Typography sx={{textAlign: 'center', mb: 4}}  variant='h5' component='h5' >Our Products</Typography>
-        <Stack direction="row" justifyContent="space-between">
+        <Typography
+          sx={{ textAlign: 'center', mb: 4 }}
+          variant="h5"
+          component="h5"
+        >
+          Our Products
+        </Typography>
+        <Stack direction={{ md: 'row' }} justifyContent="space-between" alignItems='center'>
           <Box sx={{ flex: 1 }}>
             <Box
               sx={{ width: '24rem' }}

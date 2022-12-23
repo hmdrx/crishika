@@ -18,7 +18,7 @@ import {
   Typography,
 } from '@mui/material';
 
-import myProfileImage from '../../Assests/Images/logo-512.png';
+import myProfileImage from '../../assets/images/logo-512.png';
 import HomeIcon from '@mui/icons-material/Home';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { colors } from '../../constants/colors';

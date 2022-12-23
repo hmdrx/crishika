@@ -10,7 +10,7 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import Auth from './Auth';
-const icon = require('../../Assests/Images/register.png');
+const icon = require('../../assets/images/register.png');
 const greetingText = 'Create Your Account Its Free!';
 
 const SignUp = () => {

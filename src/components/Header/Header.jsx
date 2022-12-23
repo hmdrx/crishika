@@ -43,7 +43,9 @@ const Header = () => {
               );
             })}
           </Stack>
-          <Button variant="outlined">Login</Button>
+          <Link to="login">
+            <Button variant="outlined">Login</Button>
+          </Link>
         </Stack>
       </Container>
     </Box>

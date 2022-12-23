@@ -26,25 +26,14 @@ body {
     'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-<<<<<<< HEAD
-
-  background: rgb(224, 233, 253);
-=======
   background: var(--bg-light);
   
->>>>>>> stage-crishika
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-<<<<<<< HEAD
-* {
-  box-sizing: border-box;
-  list-style: none;
-  text-decoration: none;
-=======
 
 ::-webkit-scrollbar {
   width: 0.6rem;
@@ -58,5 +47,4 @@ code {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary-variant);
->>>>>>> stage-crishika
 }

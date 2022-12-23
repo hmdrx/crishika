@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-function App() {
-  return <div>hello world!</div>;
-=======
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import BeforeQuiz from './pages/Dashboard/Quiz/BeforeQuiz';
@@ -79,7 +75,6 @@ function App() {
       </BrowserRouter>
     </ThemeProvider>
   );
->>>>>>> stage-crishika
 }
 
 export default App;

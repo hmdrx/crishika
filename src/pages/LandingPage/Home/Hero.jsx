@@ -1,6 +1,5 @@
 import hero from '../../../assets/svg/hero.svg';
 import { Box, Button, Container, Stack, Typography } from '@mui/material';
-// import { colors } from '../../../constants/colors';
 
 const Hero = () => {
   return (

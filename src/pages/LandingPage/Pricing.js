@@ -1,7 +1,13 @@
-import React from 'react';
+import SectionFive from './Home/SectionFive';
+import SectionTwo from './Home/SectionTwo';
 
 const Pricing = () => {
-  return <div>Pricing</div>;
+  return (
+    <>
+      <SectionTwo />
+      <SectionFive />
+    </>
+  );
 };
 
 export default Pricing;

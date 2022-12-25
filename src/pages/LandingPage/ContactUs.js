@@ -1,7 +1,11 @@
-import React from 'react';
+import SectionFive from './Home/SectionFive';
 
 const ContactUs = () => {
-  return <div>ContactUs</div>;
+  return (
+    <>
+      <SectionFive />
+    </>
+  );
 };
 
 export default ContactUs;

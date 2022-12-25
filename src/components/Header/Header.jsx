@@ -15,7 +15,7 @@ const Header = () => {
     <Box sx={{ bgcolor: '#25bf7770', display: { xs: 'none', md: 'block' } }}>
       <Container>
         <Stack
-          sx={{ pt: 2 }}
+          sx={{ py: 2 }}
           direction="row"
           justifyContent="space-between"
           alignItems="center"

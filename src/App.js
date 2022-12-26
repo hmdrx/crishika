@@ -16,9 +16,10 @@ import UpdatePassword from './pages/Dashboard/PasswordSettings/UpdatePassword';
 import ResetPassword from './pages/Dashboard/PasswordSettings/ResetPassword';
 import { createTheme, ThemeProvider } from '@mui/material';
 import SignUp from './pages/Auth/SignUp';
-import ResponsiveDrawer from './test/Drawer';
+import ResponsiveDrawer from './test/Test';
 import Quiz from './pages/Dashboard/Quiz/Quiz';
 import Report from './pages/Dashboard/Report/Report';
+import Test from './test/Test'
 
 const theme = createTheme({
   palette: {
@@ -71,6 +72,7 @@ function App() {
           <Route path="drawer" element={<ResponsiveDrawer />} />
           <Route path="quiz" element={<Quiz />} />
           <Route path="report" element={<Report />} />
+          <Route path="test" element={<Test />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

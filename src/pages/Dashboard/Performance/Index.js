@@ -1,5 +1,4 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
-import { colors } from '../../../constants/colors';
 import { cards } from '../../../data/data';
 import OverallReportCard from './OverallReportCard';
 import SubReportCard from './SubReportCard';
@@ -7,7 +6,7 @@ import SubReportCard from './SubReportCard';
 const Performance = () => {
   return (
     <Box>
-      <Container sx={{ p: 2, bgcolor: colors.bg }}>
+      <Container sx={{ p: 2 }}>
         <Typography sx={{ textAlign: 'center' }} variant="body1">
           Overall Performance
         </Typography>

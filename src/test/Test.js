@@ -1,36 +1,95 @@
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/Inbox';
 import { useState } from 'react';
-import { ListItem } from '@mui/material';
+import './Test.css';
 
-export default function SelectedListItem() {
-  const [selectedIndex, setSelectedIndex] = useState(1);
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import SwipeableViews from 'react-swipeable-views';
 
-  const handleListItemClick = value => {
-    setSelectedIndex(value);
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
+const Test = () => {
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+  const handleChangeIndex = (index) => {
+    setValue(index);
   };
 
   return (
-    <Box>
-      <List>
-        {['Index', 'Hello', 'Lelo'].map(el => (
-          <ListItem>
-            <ListItemButton
-              selected={selectedIndex === el}
-              onClick={handleListItemClick.bind(this, el)}
-            >
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={el} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
+    <>
+      <div className="bg">
+        <li />
+        <li />
+      </div>
+      <div className="container">
+        <div className="rac">
+          <Box sx={{ width: '100%' }}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                variant="fullWidth"
+                aria-label="basic tabs example"
+              >
+                <Tab label="Item One" {...a11yProps(0)} />
+                <Tab label="Item Two" {...a11yProps(1)} />
+              </Tabs>
+            </Box>
+            <SwipeableViews
+        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+        index={value}
+        onChangeIndex={handleChangeIndex}
+      >
+
+            <TabPanel value={value} index={0}>
+             Quiz
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              Account
+            </TabPanel>
+          
+      </SwipeableViews>
+          </Box>
+        </div>
+      </div>
+    </>
   );
-}
+};
+
+export default Test;

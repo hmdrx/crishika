@@ -16,14 +16,16 @@ const SubReportCard = () => {
           flexDirection: 'column',
           p: 2,
           minWidth: '18rem',
+          bgcolor: 'transparent',
+          backdropFilter: 'blur(1rem)',
         }}
       >
-        <Typography sx={{ textAlign: 'center', pb: '.5rem' }} variant="body1">
+        <Typography color='white' sx={{ textAlign: 'center', pb: '.5rem' }} variant="body1">
           Agronomy
         </Typography>
         <Divider />
         <Box sx={{ display: 'flex', py: '.5rem' }}>
-          <Typography sx={{ flex: 3 }} variant="body2">
+          <Typography color='white' sx={{ flex: 3 }} variant="body2">
             Total questions
           </Typography>
           <Typography sx={{ flex: 1 }} variant="body2">

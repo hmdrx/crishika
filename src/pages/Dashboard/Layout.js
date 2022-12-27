@@ -1,66 +1,95 @@
 import { useState } from 'react';
+// import './Test.css';
+
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/Inbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
+import SwipeableViews from 'react-swipeable-views';
+import { useTheme } from '@mui/material/styles';
 
-import classes from '../Auth/Auth.module.css';
-import { Outlet } from 'react-router-dom';
-import { Container, Paper, Stack } from '@mui/material';
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
 
-const Layout = () => {
-  const [selectedIndex, setSelectedIndex] = useState(1);
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
 
-  const handleListItemClick = (event, index) => {
-    setSelectedIndex(index);
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
+const Test = () => {
+  const theme = useTheme();
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+  const handleChangeIndex = index => {
+    setValue(index);
   };
 
   return (
     <>
-    <Box sx={{p:2, height: '100vh',bgcolor: '#25BF7783'}} >
-      <Paper
-        elevation={3}
-        sx={{ bgcolor: '#25BF7783', height: '100%', overflow: 'auto' }}
-      >
-        <Stack
-          direction="row"
-        >
-          <Box
-            sx={{ width: '100%', maxWidth: 360, }}
-          >
-            <List component="nav" aria-label="main mailbox folders">
-              <ListItemButton
-                selected={selectedIndex === 0}
-                onClick={event => handleListItemClick(event, 0)}
+      <div className="bg">
+        <li />
+        <li />
+      </div>
+      <div className="container">
+        <div className="rac">
+          <Box sx={{ width: '100%' }}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                variant="fullWidth"
+                aria-label="basic tabs example"
               >
-                <ListItemIcon>
-                  <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary="Inbox" />
-              </ListItemButton>
-              <ListItemButton
-                selected={selectedIndex === 1}
-                onClick={event => handleListItemClick(event, 1)}
-              >
-                <ListItemIcon>
-                  <DraftsIcon />
-                </ListItemIcon>
-                <ListItemText primary="Drafts" />
-              </ListItemButton>
-            </List>
+                <Tab label="Quiz" {...a11yProps(0)} />
+                <Tab label="Account" {...a11yProps(1)} />
+              </Tabs>
+            </Box>
+            <SwipeableViews
+              axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+              index={value}
+              onChangeIndex={handleChangeIndex}
+            >
+              <TabPanel value={value} index={0}>
+                Quiz
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+                Account
+              </TabPanel>
+            </SwipeableViews>
           </Box>
-          <Container>
-            <Outlet />
-          </Container>
-        </Stack>
-      </Paper>
-    </Box>
+        </div>
+      </div>
     </>
-
   );
 };
 
-export default Layout;
+export default Test;

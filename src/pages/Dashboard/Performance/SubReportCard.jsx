@@ -20,12 +20,12 @@ const SubReportCard = () => {
           backdropFilter: 'blur(1rem)',
         }}
       >
-        <Typography color='white' sx={{ textAlign: 'center', pb: '.5rem' }} variant="body1">
+        <Typography sx={{ textAlign: 'center', pb: '.5rem' }} variant="body1">
           Agronomy
         </Typography>
         <Divider />
         <Box sx={{ display: 'flex', py: '.5rem' }}>
-          <Typography color='white' sx={{ flex: 3 }} variant="body2">
+          <Typography sx={{ flex: 3 }} variant="body2">
             Total questions
           </Typography>
           <Typography sx={{ flex: 1 }} variant="body2">

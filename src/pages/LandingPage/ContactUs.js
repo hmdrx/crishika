@@ -1,11 +1,7 @@
 import SectionFive from './Home/SectionFive';
 
 const ContactUs = () => {
-  return (
-    <>
-      <SectionFive />
-    </>
-  );
+  return <SectionFive />;
 };
 
 export default ContactUs;

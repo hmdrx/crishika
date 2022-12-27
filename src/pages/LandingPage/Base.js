@@ -5,14 +5,12 @@ import Bg from './Bg/Bg';
 
 const Base = () => {
   return (
-    <div>
+    <>
       <Bg />
       <Header />
-      <div>
-        <Outlet />
-      </div>
+      <Outlet />
       <Footer />
-    </div>
+    </>
   );
 };
 

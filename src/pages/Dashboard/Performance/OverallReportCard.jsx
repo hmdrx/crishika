@@ -11,6 +11,7 @@ const OverallReportCard = () => {
         m: '0.5rem',
         p: 1,
         bgcolor: 'transparent',
+        minHeight: '8rem'
       }}
     >
       <Box>

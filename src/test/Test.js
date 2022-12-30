@@ -11,6 +11,7 @@ import { useTheme } from '@mui/material/styles';
 import { Container, Stack } from '@mui/material';
 import BeforeQuiz from '../pages/Dashboard/Quiz/BeforeQuiz';
 import Performance from '../pages/Dashboard/Performance/Performance';
+import AccountDetails from '../pages/Dashboard/Account/AccountDetails';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -57,7 +58,7 @@ const Test = () => {
   };
 
   return (
-    <Container disableGutters >
+    <Container disableGutters>
       {/* Background UI */}
       <Box
         sx={{
@@ -107,13 +108,13 @@ const Test = () => {
         />
       </Box>
       <Stack
-        sx={{ minHeight: '100vh', py:4 }}
+        sx={{ minHeight: '100vh', py: 4 }}
         alignItems="center"
         // justifyContent="center"
       >
         <Box
           sx={{
-            flex:1,
+            flex: 1,
             width: '100%',
             maxWidth: '100rem',
             borderRadius: 5,
@@ -131,7 +132,8 @@ const Test = () => {
                 aria-label="basic tabs example"
               >
                 <Tab label="Quiz" {...a11yProps(0)} />
-                <Tab label="Account" {...a11yProps(1)} />
+                <Tab label="Report" {...a11yProps(1)} />
+                <Tab label="Account" {...a11yProps(2)} />
               </Tabs>
             </Box>
             <SwipeableViews
@@ -140,12 +142,13 @@ const Test = () => {
               onChangeIndex={handleChangeIndex}
             >
               <TabPanel value={value} index={0}>
-                {/* Quiz */}
-                <Performance/>
+                <BeforeQuiz />
               </TabPanel>
               <TabPanel value={value} index={1}>
-                {/* Account */}
-                <BeforeQuiz/>
+                <Performance />
+              </TabPanel>
+              <TabPanel value={value} index={2}>
+                <AccountDetails />
               </TabPanel>
             </SwipeableViews>
           </Box>

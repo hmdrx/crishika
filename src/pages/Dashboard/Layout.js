@@ -1,201 +1,160 @@
-import { Outlet } from 'react-router-dom';
-import Drawer from '@mui/material/Drawer';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import MenuIcon from '@mui/icons-material/Menu';
-import {
-  AppBar,
-  Box,
-  CssBaseline,
-  IconButton,
-  Typography,
-} from '@mui/material';
-
-import myProfileImage from '../../assets/images/logo-512.png';
-import HomeIcon from '@mui/icons-material/Home';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import { colors } from '../../constants/colors';
 import { useState } from 'react';
 
-const drawerWidth = 240;
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import SwipeableViews from 'react-swipeable-views';
+import { useTheme } from '@mui/material/styles';
+import { Container, Stack } from '@mui/material';
+import BeforeQuiz from '../../pages/Dashboard/Quiz/BeforeQuiz';
+import Performance from '../../pages/Dashboard/Performance/Performance';
+import AccountDetails from '../../pages/Dashboard/Account/AccountDetails';
 
-const Layout = props => {
-  const { window } = props;
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [listSelected, setListSelected] = useState(1);
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-  const clickHandler = value => {
-    setListSelected(value);
-  };
-
-  const drawer = (
-    <>
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-            bgcolor: 'primary.main',
-          },
-        }}
-        variant="permanent"
-        anchor="left"
-      >
-        <Toolbar sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-          <Box
-            sx={{
-              width: '14rem',
-              height: '14rem',
-              borderRadius: '8rem',
-              overflow: 'hidden',
-              border: '1px solid white',
-            }}
-          >
-            <Box sx={{ width: 1 }} component="img" src={myProfileImage} />
-          </Box>
-          <Typography variant="h6" color="white">
-            Humendra
-          </Typography>
-        </Toolbar>
-        <Divider />
-        <List>
-          <ListItemButton>
-            <ListItemIcon sx={{ color: 'white' }}>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText primary={'Overview'} sx={{ color: 'white' }} />
-          </ListItemButton>
-        </List>
-        <Divider />
-        <List>
-          {['Start Test', 'Performance'].map(text => (
-            <ListItemButton
-              key={text}
-              selected={listSelected === text}
-              onClick={clickHandler.bind(this, text)}
-            >
-              <ListItemIcon sx={{ color: 'white' }}>
-                <MailIcon />
-              </ListItemIcon>
-              <ListItemText primary={text} sx={{ color: 'white' }} />
-            </ListItemButton>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['Account Details', 'Password Settings'].map((text, index) => (
-            <ListItemButton>
-              <ListItemIcon sx={{ color: 'white' }}>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} sx={{ color: 'white' }} />
-            </ListItemButton>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          <ListItemButton>
-            <ListItemIcon sx={{ color: 'white' }}>
-              <MailIcon />
-            </ListItemIcon>
-            <ListItemText primary="Logout" sx={{ color: 'white' }} />
-          </ListItemButton>
-        </List>
-      </Drawer>
-    </>
-  );
-
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
+const Test = () => {
+  const theme = useTheme();
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+  const handleChangeIndex = index => {
+    setValue(index);
+  };
+
+  return (
+    <Container disableGutters>
+      {/* Background UI */}
+      <Box
         sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
-          bgcolor: colors.secondary,
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          height: '100vh',
+          width: '100vw',
+          background: 'linear-gradient(#b8f1d6,#25bf77)',
+          zIndex: '-9999',
         }}
       >
-        <Toolbar sx={{ display: 'flex' }}>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Responsive drawer
-          </Typography>
-          <NotificationsIcon sx={{ marginLeft: 'auto' }} />
-        </Toolbar>
-      </AppBar>
-      <Box
-        component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
-      >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
+        <Box
           sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': {
-              boxSizing: 'border-box',
-              width: drawerWidth,
-            },
+            position: 'inherit',
+            right: '5%',
+            top: '25%',
+            width: 400,
+            height: 400,
+            borderRadius: '51% 49% 60% 40% / 74% 62% 38% 26% ',
+            background: '#25bf77',
+            boxShadow: '0px 0px 5px 5px rgba(37,191,119,1)',
+          }}
+        />
+        <Box
+          sx={{
+            position: 'inherit',
+            top: '10%',
+            left: '20%',
+            width: 180,
+            height: 180,
+            borderRadius: '59% 41% 49% 51% / 74% 84% 16% 26% ',
+            background: '#25bf77',
+            boxShadow: '0px 0px 5px 5px rgba(37,191,119,1)',
+          }}
+        />
+        <Box
+          sx={{
+            position: 'inherit',
+            bottom: 0,
+            width: 280,
+            height: 280,
+            borderRadius: '59% 41% 49% 51% / 74% 84% 16% 26% ',
+            background: '#25bf77',
+            boxShadow: '0px 0px 5px 5px rgba(37,191,119,1)',
+          }}
+        />
+      </Box>
+      <Stack
+        sx={{ minHeight: '100vh', py: 4 }}
+        alignItems="center"
+        // justifyContent="center"
+      >
+        <Box
+          sx={{
+            flex: 1,
+            width: '100%',
+            maxWidth: '100rem',
+            borderRadius: 5,
+            background: 'rgba(255, 255, 255, 0.2)',
+            /* background: transparent, */
+            backdropFilter: 'blur(1.8rem)',
           }}
         >
-          {drawer}
-        </Drawer>
-        <Drawer
-          variant="permanent"
-          sx={{
-            display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': {
-              boxSizing: 'border-box',
-              width: drawerWidth,
-            },
-          }}
-          open
-        >
-          {drawer}
-        </Drawer>
-      </Box>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-        }}
-      >
-        <Toolbar />
-        <Outlet />
-      </Box>
-    </Box>
+          <Box sx={{ width: '100%' }}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                variant="fullWidth"
+                aria-label="basic tabs example"
+              >
+                <Tab label="Quiz" {...a11yProps(0)} />
+                <Tab label="Report" {...a11yProps(1)} />
+                <Tab label="Account" {...a11yProps(2)} />
+              </Tabs>
+            </Box>
+            <SwipeableViews
+              axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+              index={value}
+              onChangeIndex={handleChangeIndex}
+            >
+              <TabPanel value={value} index={0}>
+                <BeforeQuiz />
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+                <Performance />
+              </TabPanel>
+              <TabPanel value={value} index={2}>
+                <AccountDetails />
+              </TabPanel>
+            </SwipeableViews>
+          </Box>
+        </Box>
+      </Stack>
+    </Container>
   );
 };
 
-export default Layout;
+export default Test;

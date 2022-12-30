@@ -16,6 +16,8 @@ const SubReportCard = () => {
           flexDirection: 'column',
           p: 2,
           minWidth: '18rem',
+          bgcolor: 'transparent',
+          backdropFilter: 'blur(1rem)',
         }}
       >
         <Typography sx={{ textAlign: 'center', pb: '.5rem' }} variant="body1">

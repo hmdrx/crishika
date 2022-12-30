@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import BeforeQuiz from './pages/Dashboard/Quiz/BeforeQuiz';
 import Layout from './pages/Dashboard/Layout';
-import Performance from './pages/Dashboard/Performance/Index';
+import Performance from './pages/Dashboard/Performance/Performance';
 import AccountDetails from './pages/Dashboard/Account/AccountDetails';
 import PasswordSettings from './pages/Dashboard/PasswordSettings/PasswordSettings';
 import Home from './pages/LandingPage/Home/Home';

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import './Test.css';
 
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
@@ -9,7 +8,7 @@ import Box from '@mui/material/Box';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
 import { Container, Stack } from '@mui/material';
-import BeforeQuiz from '../pages/Dashboard/Quiz/BeforeQuiz';
+import BeforeQuiz from '../pages/Dashboard/Quiz/StartQuiz';
 import Performance from '../pages/Dashboard/Performance/Performance';
 import AccountDetails from '../pages/Dashboard/Account/AccountDetails';
 

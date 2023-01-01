@@ -1,10 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import BeforeQuiz from './pages/Dashboard/Quiz/BeforeQuiz';
-import Layout from './pages/Dashboard/Layout';
-import Performance from './pages/Dashboard/Performance/Performance';
-import AccountDetails from './pages/Dashboard/Account/AccountDetails';
-import PasswordSettings from './pages/Dashboard/PasswordSettings/PasswordSettings';
+import Dashboard from './pages/Dashboard/Dashboard';
 import Home from './pages/LandingPage/Home/Home';
 import Base from './pages/LandingPage/Base';
 import Pricing from './pages/LandingPage/Pricing';
@@ -12,14 +8,12 @@ import ContactUs from './pages/LandingPage/ContactUs';
 import AboutUs from './pages/LandingPage/AboutUs';
 
 import Login from './pages/Auth/Login';
-import UpdatePassword from './pages/Dashboard/PasswordSettings/UpdatePassword';
-import ResetPassword from './pages/Dashboard/PasswordSettings/ResetPassword';
 import { createTheme, ThemeProvider } from '@mui/material';
 import SignUp from './pages/Auth/SignUp';
 import ResponsiveDrawer from './test/Test';
 import Quiz from './pages/Dashboard/Quiz/Quiz';
 import Report from './pages/Dashboard/Report/Report';
-import Test from './test/Test'
+import Test from './test/Test';
 
 const theme = createTheme({
   palette: {
@@ -56,17 +50,7 @@ function App() {
             <Route path="about_us" element={<AboutUs />} />
             <Route path="contact" element={<ContactUs />} />
           </Route>
-          <Route path="dashboard" element={<Layout />}>
-            <Route index element={<Performance />} />
-            <Route path="exam_exercise" element={<BeforeQuiz />} />
-            <Route path="account_details" element={<AccountDetails />} />
-            <Route path="password_settings" element={<PasswordSettings />}>
-              <Route index element={<UpdatePassword />} />
-              <Route path="reset" element={<ResetPassword />} />
-            </Route>
-            <Route path="logout" element={<AccountDetails />} />
-          </Route>
-
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<SignUp />} />
           <Route path="drawer" element={<ResponsiveDrawer />} />

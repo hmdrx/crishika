@@ -1,160 +1,81 @@
-import { useState } from 'react';
-
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
+import * as React from 'react';
 import Box from '@mui/material/Box';
-import SwipeableViews from 'react-swipeable-views';
-import { useTheme } from '@mui/material/styles';
-import { Container, Stack } from '@mui/material';
-import BeforeQuiz from '../pages/Dashboard/Quiz/StartQuiz';
-import Performance from '../pages/Dashboard/Performance/Performance';
-import AccountDetails from '../pages/Dashboard/Account/AccountDetails';
+import Drawer from '@mui/material/Drawer';
+import Button from '@mui/material/Button';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+export default function TemporaryDrawer() {
+  const [state, setState] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <Box
+      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
 
   return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+    <div>
+      {['left', 'right', 'top', 'bottom'].map((anchor) => (
+        <React.Fragment key={anchor}>
+          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+          <Drawer
+            anchor={anchor}
+            open={state[anchor]}
+            onClose={toggleDrawer(anchor, false)}
+          >
+            {list(anchor)}
+          </Drawer>
+        </React.Fragment>
+      ))}
     </div>
   );
 }
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
-
-const Test = () => {
-  const theme = useTheme();
-  const [value, setValue] = useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-  const handleChangeIndex = index => {
-    setValue(index);
-  };
-
-  return (
-    <Container disableGutters>
-      {/* Background UI */}
-      <Box
-        sx={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          height: '100vh',
-          width: '100vw',
-          background: 'linear-gradient(#b8f1d6,#25bf77)',
-          zIndex: '-9999',
-        }}
-      >
-        <Box
-          sx={{
-            position: 'inherit',
-            right: '5%',
-            top: '25%',
-            width: 400,
-            height: 400,
-            borderRadius: '51% 49% 60% 40% / 74% 62% 38% 26% ',
-            background: '#25bf77',
-            boxShadow: '0px 0px 5px 5px rgba(37,191,119,1)',
-          }}
-        />
-        <Box
-          sx={{
-            position: 'inherit',
-            top: '10%',
-            left: '20%',
-            width: 180,
-            height: 180,
-            borderRadius: '59% 41% 49% 51% / 74% 84% 16% 26% ',
-            background: '#25bf77',
-            boxShadow: '0px 0px 5px 5px rgba(37,191,119,1)',
-          }}
-        />
-        <Box
-          sx={{
-            position: 'inherit',
-            bottom: 0,
-            width: 280,
-            height: 280,
-            borderRadius: '59% 41% 49% 51% / 74% 84% 16% 26% ',
-            background: '#25bf77',
-            boxShadow: '0px 0px 5px 5px rgba(37,191,119,1)',
-          }}
-        />
-      </Box>
-      <Stack
-        sx={{ minHeight: '100vh', py: 4 }}
-        alignItems="center"
-        // justifyContent="center"
-      >
-        <Box
-          sx={{
-            flex: 1,
-            width: '100%',
-            maxWidth: '100rem',
-            borderRadius: 5,
-            background: 'rgba(255, 255, 255, 0.2)',
-            /* background: transparent, */
-            backdropFilter: 'blur(1.8rem)',
-          }}
-        >
-          <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <Tabs
-                value={value}
-                onChange={handleChange}
-                variant="fullWidth"
-                aria-label="basic tabs example"
-              >
-                <Tab label="Quiz" {...a11yProps(0)} />
-                <Tab label="Report" {...a11yProps(1)} />
-                <Tab label="Account" {...a11yProps(2)} />
-              </Tabs>
-            </Box>
-            <SwipeableViews
-              axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-              index={value}
-              onChangeIndex={handleChangeIndex}
-            >
-              <TabPanel value={value} index={0}>
-                <BeforeQuiz />
-              </TabPanel>
-              <TabPanel value={value} index={1}>
-                <Performance />
-              </TabPanel>
-              <TabPanel value={value} index={2}>
-                <AccountDetails />
-              </TabPanel>
-            </SwipeableViews>
-          </Box>
-        </Box>
-      </Stack>
-    </Container>
-  );
-};
-
-export default Test;

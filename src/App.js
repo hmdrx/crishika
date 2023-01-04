@@ -1,20 +1,28 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
-import Dashboard from './pages/Dashboard/Dashboard';
-import Home from './pages/LandingPage/Home/Home';
-import Base from './pages/LandingPage/Base';
-import Pricing from './pages/LandingPage/Pricing';
-import ContactUs from './pages/LandingPage/ContactUs';
-import AboutUs from './pages/LandingPage/AboutUs';
-
-import Login from './pages/Auth/Login';
 import { createTheme, ThemeProvider } from '@mui/material';
-import SignUp from './pages/Auth/SignUp';
-import ResponsiveDrawer from './test/Test';
-import Quiz from './pages/Dashboard/Quiz/Quiz';
-import Report from './pages/Dashboard/Report/Report';
-import Test from './test/Test';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+//redux imports
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
+// Landing page imports
+import Layout from './pages/LandingPage/Layout';
+import Home from './pages/LandingPage/Home/Home';
+import Pricing from './pages/LandingPage/Pricing';
+import AboutUs from './pages/LandingPage/AboutUs';
+import ContactUs from './pages/LandingPage/ContactUs';
+
+// Auth imoports
+import Login from './pages/Auth/Login';
+import SignUp from './pages/Auth/SignUp';
+
+// Dashboard imports
+import Dashboard from './pages/Dashboard/Dashboard';
+import Report from './pages/Dashboard/Report/Report';
+import Quiz from './pages/Dashboard/Quiz/Quiz';
+
+
+// App wide Theme
 const theme = createTheme({
   palette: {
     primary: {
@@ -39,27 +47,66 @@ const theme = createTheme({
   },
 });
 
+
+const router = createBrowserRouter([
+  {
+  // Landing page route
+    path: '/',
+    element: <Layout />,
+    children: [
+      {index: true,
+    element: <Home /> },
+    {
+      path: 'pricing',
+      element: <Pricing/>
+    },
+    {
+      path: 'about_us',
+      element: <AboutUs/>
+    },
+    {
+      path: 'contact',
+      element: <ContactUs/>
+    },
+   
+    ]
+  },
+
+  // Auth route
+  {
+    path: '/login',
+    element: <Login/>
+  },
+  {
+    path: '/register',
+    element: <SignUp/>
+  },
+
+  // Dashboard route
+  {
+    path: '/dashboard',
+    element: <Dashboard/>
+  },
+  {
+    path: '/quiz',
+    element: <Quiz/>
+  },
+  {
+    path: '/report',
+    element: <Report/>
+  },
+
+])
+
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Base />}>
-            <Route index element={<Home />} />
-            <Route path="pricing" element={<Pricing />} />
-            <Route path="about_us" element={<AboutUs />} />
-            <Route path="contact" element={<ContactUs />} />
-          </Route>
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<SignUp />} />
-          <Route path="drawer" element={<ResponsiveDrawer />} />
-          <Route path="quiz" element={<Quiz />} />
-          <Route path="report" element={<Report />} />
-          <Route path="test" element={<Test />} />
-        </Routes>
-      </BrowserRouter>
-    </ThemeProvider>
+    <Provider store={store} >
+      <RouterProvider router={router}/>
+    </Provider>
+      </ThemeProvider>
+
   );
 }
 

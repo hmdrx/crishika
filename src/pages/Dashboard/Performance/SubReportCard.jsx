@@ -20,8 +20,11 @@ const SubReportCard = () => {
           backdropFilter: 'blur(1rem)',
         }}
       >
-        <Typography sx={{ textAlign: 'center', pb: '.5rem' }} variant="body1">
-          Agronomy
+        <Typography
+          sx={{ textAlign: 'center', pb: '.5rem' }}
+          variant="subtitle2"
+        >
+          AgronomyA
         </Typography>
         <Divider />
         <Box sx={{ display: 'flex', py: '.5rem' }}>

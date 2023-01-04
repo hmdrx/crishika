@@ -12,13 +12,11 @@ const Performance = () => {
         </Typography>
 
         <Grid container>
-          {cards.map(el => {
-            return (
-              <Grid item xs={4} md={2}>
-                <OverallReportCard />
-              </Grid>
-            );
-          })}
+          {cards.map(el => (
+            <Grid item xs={4} md={2} key={el}>
+              <OverallReportCard />
+            </Grid>
+          ))}
         </Grid>
       </Container>
       <Container sx={{ p: 2 }}>
@@ -27,13 +25,11 @@ const Performance = () => {
         </Typography>
 
         <Grid container columnSpacing={1}>
-          {cards.map(el => {
-            return (
-              <Grid item xs={6} md={3}>
-                <SubReportCard />
-              </Grid>
-            );
-          })}
+          {cards.map(el => (
+            <Grid item xs={6} md={3} key={el}>
+              <SubReportCard />
+            </Grid>
+          ))}
         </Grid>
       </Container>
     </Box>

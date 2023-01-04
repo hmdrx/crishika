@@ -7,5 +7,6 @@ export const colors = {
   bg: '#c1ffe2',
   bgLight: '#e7faf1',
   dark: '#344457',
+  disabled: '#72a88e',
   gray: '#d2e2e8',
 };

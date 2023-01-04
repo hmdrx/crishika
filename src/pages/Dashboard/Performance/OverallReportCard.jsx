@@ -1,4 +1,4 @@
-import { Box, Divider, Paper, Typography } from '@mui/material';
+import { Divider, Paper, Typography } from '@mui/material';
 
 const OverallReportCard = () => {
   return (
@@ -11,16 +11,12 @@ const OverallReportCard = () => {
         m: '0.5rem',
         p: 1,
         bgcolor: 'transparent',
-        minHeight: '8rem'
+        minHeight: '8rem',
       }}
     >
-      <Box>
-        <Typography variant="h6">1023</Typography>
-      </Box>
+      <Typography variant="h6">1023</Typography>
       <Divider />
-      <Box>
-        <Typography variant="body2">Total questions</Typography>
-      </Box>
+      <Typography variant="body2">Total questions</Typography>
     </Paper>
   );
 };

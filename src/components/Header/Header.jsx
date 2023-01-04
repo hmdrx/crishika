@@ -12,7 +12,7 @@ const tabsNameAndLink = [
 
 const Header = () => {
   return (
-    <Box sx={{ bgcolor: '#25bf7770', display: { xs: 'none', md: 'block' } }}>
+    <Box sx={{ bgcolor: '#25bf7770', display: { xs: 'none', sm: 'block' } }}>
       <Container>
         <Stack
           sx={{ py: 2 }}

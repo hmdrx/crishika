@@ -1,20 +1,31 @@
-import { Box, Button, FormControlLabel,   Radio, RadioGroup, Stack, Typography } from '@mui/material';
-import React from 'react';
+import { Box, Button, Stack, Typography } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import DashboardBg from '../../../components/DashboardBg';
+import { nextQues, prevQues } from '../../../redux/question-reducer';
+import { pushAnswer } from '../../../redux/result-reducer';
+import Ques from './Ques';
 
 const Quiz = () => {
+  const { questions, time, trace } = useSelector(state => state.questions);
+  const { answers } = useSelector(state => state.result);
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
 
-  const [value, setValue] = React.useState();
-
-  const handleChange = (event) => {
-    setValue(event.target.value);
+  const nextQuesHandler = () => {
+    if (!answers[trace]) {
+      dispatch(pushAnswer('undefined'));
+    }
+    if (questions.length === trace + 1) {
+      navigate('/report', {replace: true})
+      return;
+    };
+    dispatch(nextQues());
   };
-
-
 
   return (
     <DashboardBg>
-      <Stack sx={{ minHeight: '100vh', py: {md: 8} ,}} alignItems="center">
+      <Stack sx={{ minHeight: '100vh', py: { md: 8 } }} alignItems="center">
         <Stack
           sx={{
             flex: 1,
@@ -23,46 +34,67 @@ const Quiz = () => {
             borderRadius: 5,
             background: 'rgba(255, 255, 255, 0.2)',
             backdropFilter: 'blur(2.2rem)',
-            px: {md: 8, xs: 2},
+            px: { md: 8, xs: 2 },
             py: 4,
-            overflow: 'hidden'
+            overflow: 'hidden',
           }}
+          justifyContent="space-between"
         >
           <Box>
             <Stack
               direction="row"
               justifyContent="space-between"
-              sx={{ position: 'sticky', top: 0, p: 1,  background: 'rgba(255, 255, 255, 0.2)', }}
+              sx={{
+                position: 'sticky',
+                top: 0,
+                p: 1,
+                background: 'rgba(255, 255, 255, 0.2)',
+              }}
             >
-              <Typography variant="body2">Question: 1/10</Typography>
-              <Typography variant="body2">Time: 10 minute</Typography>
+              <Typography variant="body2" component="p">
+                Question:
+                {questions.length > 0 && (
+                  <Typography variant="body2" component="span">
+                    {trace + 1}/{questions.length}
+                  </Typography>
+                )}
+              </Typography>
+              <Typography variant="body2" component="p">
+                Time:
+                {time !== null && (
+                  <Typography variant="body2" component="span">
+                    10 minuts
+                  </Typography>
+                )}
+              </Typography>
             </Stack>
-            <Typography sx={{ mt: 4 }}>
-              Who is the father of agronomy and how he became lorem ipsum igosho
-              nos porso nato kalo umaro guato makara qakarmat agolia mokato
-              naqato Who is the father of agronomy and how he became lorem ipsum
-              igosho Who is the father of agronomy and how he became lorem ipsum
-              igosho Who is the father of agronomy and how he became lorem ipsum
-              igosho Who is the father of agronomy and how he became lorem ipsum
-            </Typography>
+            <Ques />
           </Box>
-          <RadioGroup
-        aria-labelledby="demo-controlled-radio-buttons-group"
-        name="controlled-radio-buttons-group"
-        value={value}
-        onChange={handleChange}
-      >
-        <FormControlLabel value="0" control={<Radio />} label="Zenthrotull" />
-        <FormControlLabel value="1" control={<Radio />} label="Zenthrotull" />
-        <FormControlLabel value="2" control={<Radio />} label="Zenthrotull" />
-        <FormControlLabel value="3" control={<Radio />} label="Zenthrotull" />
-      </RadioGroup>
-         
-          <Stack sx={{mt: 4,}} direction='row' justifyContent='space-between' >
-            <Button disableElevation disableRipple variant='contained' size='small' >Previous</Button>
-            <Button disableElevation disableRipple variant='contained' size='small' >Next</Button>
+
+          <Stack sx={{ mt: 4 }} direction="row" justifyContent="space-between">
+            {trace > 0 && (
+              <Button
+                disableElevation
+                disableRipple
+                variant="contained"
+                size="small"
+                onClick={() => dispatch(prevQues())}
+              >
+                Previous
+              </Button>
+            )}
+
+            <Button
+              sx={{ marginLeft: 'auto' }}
+              disableElevation
+              disableRipple
+              variant="contained"
+              size="small"
+              onClick={nextQuesHandler}
+            >
+              {questions.length > trace + 1 ? 'Next' : 'Submit'}
+            </Button>
           </Stack>
-      
         </Stack>
       </Stack>
     </DashboardBg>

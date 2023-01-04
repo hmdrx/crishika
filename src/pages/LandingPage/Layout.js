@@ -3,7 +3,7 @@ import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
 import Bg from './Bg/Bg';
 
-const Base = () => {
+const Layout = () => {
   return (
     <>
       <Bg />
@@ -14,4 +14,4 @@ const Base = () => {
   );
 };
 
-export default Base;
+export default Layout;

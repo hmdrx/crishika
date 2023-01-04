@@ -9,18 +9,24 @@ import {
 import { useState } from 'react';
 import Auth from './Auth';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 const icon = require('../../assets/images/login.png');
 const greetingText = 'Welcome back!';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleClickShowPassword = () => setShowPassword(show => !show);
 
   const handleMouseDownPassword = event => {
     event.preventDefault();
   };
+
+  const loginHandler = ()=>{
+    navigate('/dashboard')
+  }
 
   return (
     <Auth greetingText={greetingText} linkText="You don't have account? " link='Register' icon={icon}>
@@ -63,7 +69,7 @@ const Login = () => {
           </IconButton>
          
         </Box>
-        <Button fullWidth variant="contained" component="button" sx={{ mt: 6 }}>
+        <Button fullWidth variant="contained" component="button" sx={{ mt: 6 }} onClick={loginHandler}>
           Login
         </Button>
       </Box>

@@ -1,12 +1,10 @@
 import {
   Box,
-  FormControlLabel,
   Radio,
-  RadioGroup,
+  Stack,
   Typography,
 } from '@mui/material';
 import Grid2 from '@mui/material/Unstable_Grid2';
-import { useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -15,19 +13,16 @@ import { pushAnswer, updateAnswer } from '../../../redux/result-reducer';
 import { colors } from '../../../constants/colors';
 
 const Ques = () => {
-  const [checked, setChecked] = useState('');
   const { questions, trace, options } = useSelector(state => state.questions);
   const { answers } = useSelector(state => state.result);
 
   const dispatch = useDispatch();
 
-  const optionCheckHandler = event => {
-    const value = event.target.value;
-    setChecked(value);
+  const optionCheckHandler = val => {
     if (answers[trace]) {
-      return dispatch(updateAnswer({ ans: value, trace: trace }));
+      return dispatch(updateAnswer({ ans: val, trace: trace }));
     }
-    dispatch(pushAnswer(value));
+    dispatch(pushAnswer(val));
   };
 
   return (
@@ -37,11 +32,28 @@ const Ques = () => {
           {decode(questions[trace]?.question)}
         </Typography>
       </Box>
-      <RadioGroup value={checked} onChange={optionCheckHandler}>
         <Grid2 container spacing={2}>
           {options.length > 0 &&
             options[trace]?.map((el, i) => (
               <Grid2 key={i} item xs={12} md={6}>
+
+              <Stack onClick={optionCheckHandler.bind(this, el)}  sx={{
+                  border: 1,
+                  borderColor: colors.disabled,
+                  borderRadius: 1,
+                  p:1,
+                  cursor: 'pointer'
+                }} direction='row' alignItems='center'>
+
+                <Radio sx={{py:0}} value={el} checked={el === answers[trace]} />
+              <Typography
+                variant="body2"
+                component='span'
+                 >
+                {decode(el)}
+              </Typography>
+                  </Stack>
+{/* 
                 <FormControlLabel
                   sx={{
                     border: 1,
@@ -54,11 +66,10 @@ const Ques = () => {
                   control={<Radio sx={{ boxSizing: 'border-box' }} />}
                   label={decode(el)}
                   checked={el === answers[trace]}
-                />
+                /> */}
               </Grid2>
             ))}
         </Grid2>
-      </RadioGroup>
     </Box>
   );
 };

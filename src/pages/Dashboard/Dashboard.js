@@ -79,7 +79,7 @@ const Dashboard = () => {
                 aria-label="basic tabs example"
               >
                 <Tab label="Performance" {...a11yProps(0)} />
-                <Tab label="Quiz" {...a11yProps(1)} />
+                <Tab label="Test" {...a11yProps(1)} />
                 <Tab label="Account" {...a11yProps(2)} />
               </Tabs>
             </Box>

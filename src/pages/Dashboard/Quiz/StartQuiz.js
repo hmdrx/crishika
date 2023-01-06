@@ -15,7 +15,8 @@ import Select from '@mui/material/Select';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { startExam } from '../../../redux/question-reducer';
+import { startExam, resetExam } from '../../../redux/question-reducer';
+import { resetResult } from '../../../redux/result-reducer';
 import { useNavigate } from 'react-router-dom';
 
 const BeforeQuiz = () => {
@@ -24,6 +25,8 @@ const BeforeQuiz = () => {
   const [time, setTime] = useState(20);
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState();
+
+
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -40,6 +43,8 @@ const BeforeQuiz = () => {
   };
 
   const startQuizHandler = () => {
+    dispatch(resetExam());
+    dispatch(resetResult());
     if (sub === '') {
       return setError(true);
     }
@@ -50,18 +55,18 @@ const BeforeQuiz = () => {
           `https://opentdb.com/api.php?amount=${noOfQues}`
         );
         const allOptions = data.results.map((el, i) =>
-  [...el.incorrect_answers, el.correct_answer]
-    .map(el => ({ val: el, sort: Math.random() }))
-    .sort((a, b) => a.sort - b.sort)
-    .map(el => el.val)
-);
+          [...el.incorrect_answers, el.correct_answer]
+            .map(el => ({ val: el, sort: Math.random() }))
+            .sort((a, b) => a.sort - b.sort)
+            .map(el => el.val)
+        );
 
         dispatch(startExam({ questions: data.results, options: allOptions }));
         navigate('/quiz', { replace: true });
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
-        throw error
+        throw error;
       }
     })();
   };

@@ -31,7 +31,7 @@ const Report = () => {
           <Stack direction="row" alignItems="center" justifyContent='space-between' >
             <Typography variant="h5">Quiz report</Typography>
             <Link to={'/dashboard'} >
-            <HomeOutlinedIcon fontSize="medium" color="primary" />
+            <HomeOutlinedIcon fontSize="medium" color="secondary" />
             </Link>
           </Stack>
           <Stack direction="row" justifyContent="space-between">

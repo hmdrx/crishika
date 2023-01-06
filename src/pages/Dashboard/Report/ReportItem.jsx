@@ -53,9 +53,10 @@ const ReportItem = ({ ques, quesIndex, ops, ans }) => {
                   border: 1,
                   borderColor: colors.disabled,
                   borderRadius: 1,
+                  p:1
                 }} direction='row' alignItems='center'>
 
-                <Radio sx={{cursor: 'default'}} disableRipple disabled={'undefined' === ans[quesIndex]} checked={ans[quesIndex] === el} color={el === ques.correct_answer ? 'primary' : 'error'} />
+                <Radio sx={{cursor: 'default', py:0}} disableRipple disabled={'undefined' === ans[quesIndex]} checked={ans[quesIndex] === el} color={el === ques.correct_answer ? 'primary' : 'error'} />
               <Typography
                 variant="body2"
                 component='span'

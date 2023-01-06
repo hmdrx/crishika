@@ -35,10 +35,19 @@ export const questionReducer = createSlice({
         options: action.payload,
       };
     },
+    resetExam: (state) => {
+      return {
+        questions: [],
+        options: [],
+        correct_answers: [],
+        trace: 0,
+        time: null,
+      };
+    },
   },
 });
 
-export const { startExam, nextQues, prevQues } =
+export const { startExam, nextQues, prevQues, resetExam } =
   questionReducer.actions;
 
 export default questionReducer.reducer;

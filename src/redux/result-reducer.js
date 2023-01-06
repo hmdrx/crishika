@@ -14,9 +14,12 @@ export const resultReducer = createSlice({
       const { ans, trace } = action.payload;
       state.answers.fill(ans, trace, trace + 1);
     },
+    resetResult: state => ({
+      answers: [],
+    }),
   },
 });
 
-export const { pushAnswer, updateAnswer } = resultReducer.actions;
+export const { pushAnswer, updateAnswer,resetResult } = resultReducer.actions;
 
 export default resultReducer.reducer;

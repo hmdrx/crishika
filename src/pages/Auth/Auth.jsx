@@ -8,29 +8,36 @@ import { Link } from 'react-router-dom';
 const logo = require('../../assets/images/logo-512.png');
 
 const Auth = ({ icon, greetingText, link, linkText, children }) => {
+
+
   return (
     <Box className={classes.anima}>
       <Container disableGutters>
-        <Box
+        <Stack direction='row'  justifyContent= 'center'
+            alignItems= { {md: 'center'} }
           sx={{
-            minHeight: '100vh',
+            minHeight: window.innerHeight,
             display: 'flex',
-            justifyContent: 'center',
-            alignItems: { md: 'center' },
+           
           }}
         >
           <Stack
             direction={{ sm: 'row' }}
             divider={<Divider orientation="vertical" flexItem />}
-            spacing={{ xs: 4 }}
+            spacing={{ xs: 2, md: 4 }}
             p={4}
-            sx={{ borderRadius: 1, overflow: 'hidden',bgcolor: '#ffffff7e', backdropFilter: 'blur(3rem)' }}
+            py={{ xs: 2, md: 4}}
+            sx={{
+              borderRadius: 1,
+              overflow: 'hidden',
+              bgcolor: '#ffffff7e',
+              backdropFilter: 'blur(3rem)',
+            }}
           >
             <Stack alignItems="center">
               <Box component="img" sx={{ width: '8.5rem' }} src={logo} />
               <Typography
                 variant="subtitle1"
-                component="h1"
                 sx={{
                   fontWeight: 'bold',
                   textTransform: 'uppercase',
@@ -39,7 +46,7 @@ const Auth = ({ icon, greetingText, link, linkText, children }) => {
               >
                 Crishika
               </Typography>
-              <Typography mt={3}>{greetingText}</Typography>
+              <Typography mt={2}>{greetingText}</Typography>
               <Box
                 component="img"
                 mt={4}
@@ -57,7 +64,7 @@ const Auth = ({ icon, greetingText, link, linkText, children }) => {
               </Typography>
             </Stack>
           </Stack>
-        </Box>
+        </Stack>
       </Container>
     </Box>
   );

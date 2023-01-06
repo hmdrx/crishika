@@ -1,5 +1,6 @@
 import hero from '../../../assets/svg/hero.svg';
 import { Box, Button, Container, Stack, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
@@ -19,9 +20,11 @@ const Hero = () => {
               <Typography variant="body1" component="p">
                 Lorem ipsum dolor sit amet consectetur.
               </Typography>
+              <Link to='/register'>
               <Button variant="contained" color="secondary" sx={{ mt: 14 }}>
                 Get Started!
               </Button>
+              </Link>
             </Box>
             <Box
               sx={{ maxWidth: { xs: '30rem', md: '50rem' } }}

@@ -6,8 +6,8 @@ import aboutUsImage from '../../assets/images/logo-512.png';
 const AboutUs = () => {
   return (
     <Container>
-      <Box sx={{ maxWidth: '70rem', m: 'auto' }}>
-        <Stack sx={{ py: 2 }} direction="row" justifyContent="space-between">
+      <Box sx={{ pt: 5,maxWidth: '70rem', m: 'auto' }}>
+        <Stack sx={{ py: 2 }} direction={{md: 'row'}} justifyContent="space-between">
           <Typography variant="h5">
             The ONLY TECH COMPANY YOU WANT FOR YOUR PROJECT
           </Typography>
@@ -21,7 +21,7 @@ const AboutUs = () => {
         <Box sx={{ py: 2 }}>
           <Typography variant="h5">Design Faster</Typography>
           <Stack
-            direction="row"
+            direction={{md: 'row'}}
             justifyContent="space-between"
             alignItems="center"
           >

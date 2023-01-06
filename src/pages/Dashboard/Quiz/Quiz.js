@@ -25,7 +25,7 @@ const Quiz = () => {
 
   return (
     <DashboardBg>
-      <Stack sx={{ minHeight: '100vh', py: { md: 8 } }} alignItems="center">
+      <Stack sx={{ minHeight: {xs: window.innerHeight, md: '100vh'}, py: { md: 8 } }} alignItems="center">
         <Stack
           sx={{
             flex: 1,

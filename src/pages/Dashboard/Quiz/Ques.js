@@ -41,16 +41,15 @@ const Ques = () => {
         <Grid2 container spacing={2}>
           {options.length > 0 &&
             options[trace]?.map((el, i) => (
-              <Grid2 item xs={12} md={6}>
+              <Grid2 key={i} item xs={12} md={6}>
                 <FormControlLabel
                   sx={{
                     border: 1,
-                    borderColor: colors.primary,
+                    borderColor: colors.disabled,
                     borderRadius: 1,
                     display: 'block',
                     m: 0,
                   }}
-                  key={i}
                   value={el}
                   control={<Radio sx={{ boxSizing: 'border-box' }} />}
                   label={decode(el)}

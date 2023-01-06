@@ -6,7 +6,7 @@ import SubReportCard from './SubReportCard';
 const Performance = () => {
   return (
     <Box>
-      <Container sx={{ p: 2 }}>
+      <Container sx={{ p: 0 }}>
         <Typography sx={{ textAlign: 'center' }} variant="body1">
           Overall Performance
         </Typography>
@@ -18,15 +18,13 @@ const Performance = () => {
             </Grid>
           ))}
         </Grid>
-      </Container>
-      <Container sx={{ p: 2 }}>
         <Typography sx={{ textAlign: 'center' }} variant="body1">
           Subject Wise Report
         </Typography>
 
         <Grid container columnSpacing={1}>
           {cards.map(el => (
-            <Grid item xs={6} md={3} key={el}>
+            <Grid item xs={12} md={3} key={el}>
               <SubReportCard />
             </Grid>
           ))}

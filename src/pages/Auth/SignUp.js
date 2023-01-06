@@ -34,28 +34,28 @@ const SignUp = () => {
         </Typography>
         <TextField
           fullWidth
-          margin="normal"
+          margin="dense"
           label="Name"
           variant="standard"
           type="text"
         />
         <TextField
           fullWidth
-          margin="normal"
+          margin="dense"
           label="Email"
           variant="standard"
           type="email"
         />
         <TextField
           fullWidth
-          margin="normal"
+          margin="dense"
           label="Create Password"
           variant="standard"
           type={showPassword ? 'text' : 'password'}
         />
         <TextField
           fullWidth
-          margin="normal"
+          margin="dense"
           label="Confirm Password"
           variant="standard"
           type={showPassword ? 'text' : 'password'}
@@ -88,7 +88,7 @@ const SignUp = () => {
           </IconButton>
         </Box>
 
-        <Button fullWidth variant="contained" component="button" sx={{ mt: 6 }}>
+        <Button fullWidth variant="contained" sx={{ mt: 6 }}>
           Sign Up
         </Button>
       </Box>

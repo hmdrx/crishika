@@ -3,14 +3,15 @@ import { useSelector } from 'react-redux';
 import DashboardBg from '../../../components/DashboardBg';
 import ReportItem from './ReportItem';
 
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import { Link } from 'react-router-dom';
+
 const Report = () => {
   const { questions, options } = useSelector(state => state.questions);
   const { answers } = useSelector(state => state.result);
 
   const allCorrectAns = questions.map(el => el.correct_answer);
-  const marks = allCorrectAns.filter((ans,i)=>(
-    ans === answers[i]
-  )).length
+  const marks = allCorrectAns.filter((ans, i) => ans === answers[i]).length;
   return (
     <DashboardBg>
       <Stack sx={{ minheight: '100vh', p: { md: 4 } }} alignItems="center">
@@ -27,13 +28,12 @@ const Report = () => {
             overflow: 'hidden',
           }}
         >
-          <Typography
-            sx={{ textAlign: 'center', mb: 2 }}
-            variant="h5"
-            component="h5"
-          >
-            Quiz report
-          </Typography>
+          <Stack direction="row" alignItems="center" justifyContent='space-between' >
+            <Typography variant="h5">Quiz report</Typography>
+            <Link to={'/dashboard'} >
+            <HomeOutlinedIcon fontSize="medium" color="primary" />
+            </Link>
+          </Stack>
           <Stack direction="row" justifyContent="space-between">
             <Typography variant="body2" component="p">
               Result: {marks}/{questions.length}
@@ -43,7 +43,13 @@ const Report = () => {
             </Typography>
           </Stack>
           {questions.map((ques, i) => (
-            <ReportItem key={i} ques={ques} quesIndex={i} ops={options} ans={answers} />
+            <ReportItem
+              key={i}
+              ques={ques}
+              quesIndex={i}
+              ops={options}
+              ans={answers}
+            />
           ))}
         </Box>
       </Stack>

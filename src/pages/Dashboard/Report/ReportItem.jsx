@@ -49,18 +49,22 @@ const ReportItem = ({ ques, quesIndex, ops, ans }) => {
                   Answer
                 </Typography>
               )}
-              <Typography
-                variant="body2"
-                color={'undefined' === ans[quesIndex] && colors.disabled}
-                sx={{
+              <Stack  sx={{
                   border: 1,
                   borderColor: colors.disabled,
                   borderRadius: 1,
-                }}
-              >
+                }} direction='row' alignItems='center'>
+
                 <Radio sx={{cursor: 'default'}} disableRipple disabled={'undefined' === ans[quesIndex]} checked={ans[quesIndex] === el} color={el === ques.correct_answer ? 'primary' : 'error'} />
+              <Typography
+                variant="body2"
+                component='span'
+                color={'undefined' === ans[quesIndex] && colors.disabled}
+               
+                >
                 {decode(el)}
               </Typography>
+                  </Stack>
             </Box>
           </Grid>
         ))}

@@ -36,7 +36,7 @@ const Login = () => {
         </Typography>
         <TextField
           fullWidth
-          margin="normal"
+          margin="dense"
           label="Email"
           size="small"
           variant="standard"
@@ -46,7 +46,7 @@ const Login = () => {
           fullWidth
           size="small"
           variant="standard"
-          margin="normal"
+          margin="dense"
           label="Password"
           type={showPassword ? 'text' : 'password'}
         />
@@ -69,7 +69,7 @@ const Login = () => {
           </IconButton>
          
         </Box>
-        <Button fullWidth variant="contained" component="button" sx={{ mt: 6 }} onClick={loginHandler}>
+        <Button fullWidth variant="contained" sx={{ mt: 6 }} onClick={loginHandler}>
           Login
         </Button>
       </Box>

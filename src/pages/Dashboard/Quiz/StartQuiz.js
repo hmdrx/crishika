@@ -2,6 +2,7 @@ import {
   Alert,
   Button,
   Chip,
+  CircularProgress,
   Container,
   Stack,
   Typography,
@@ -23,10 +24,8 @@ const BeforeQuiz = () => {
   const [sub, setSub] = useState('');
   const [noOfQues, setNoOfQues] = useState(10);
   const [time, setTime] = useState(20);
-  const [error, setError] = useState();
+  const [error, setError] = useState({ errorStatus: false, msg: '' });
   const [isLoading, setIsLoading] = useState();
-
-
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -46,7 +45,7 @@ const BeforeQuiz = () => {
     dispatch(resetExam());
     dispatch(resetResult());
     if (sub === '') {
-      return setError(true);
+      return setError({ errorStatus: true, msg: 'Plz select subject also.' });
     }
     (async () => {
       try {
@@ -66,7 +65,7 @@ const BeforeQuiz = () => {
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
-        throw error;
+        setError({ errorStatus: true, msg: error.message });
       }
     })();
   };
@@ -147,11 +146,14 @@ const BeforeQuiz = () => {
             />
           </Stack>
         </Box>
-        {error && (
+        {error.errorStatus && (
           <Alert severity="info" onClose={() => setError(false)}>
-            Plz select subject also.
+            {error.msg}
           </Alert>
         )}
+
+        {isLoading &&  <CircularProgress />}
+        
         <Button
           size="small"
           variant="contained"

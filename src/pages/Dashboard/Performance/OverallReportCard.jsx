@@ -1,22 +1,21 @@
-import { Divider, Paper, Typography } from '@mui/material';
+import { Paper, Stack, Typography } from '@mui/material';
 
-const OverallReportCard = () => {
+const OverallReportCard = ({ field, value }) => {
   return (
     <Paper
-      elevation={3}
       sx={{
         textAlign: 'center',
-        color: 'gray',
-        overflow: 'hidden',
-        m: '0.5rem',
         p: 1,
-        bgcolor: 'transparent',
-        minHeight: '8rem',
+        // m: 1,
+        bgcolor: ()=>{if(field === 'Correct Answered') {return '#25bf7754'}else if(field === 'Wrong Answered'){return '#ff000054'}else{ return '#66696554' }} ,
+        maxWidth: '10rem',
+        minHeight: '10rem',
       }}
     >
-      <Typography variant="h6">1023</Typography>
-      <Divider />
-      <Typography variant="body2">Total questions</Typography>
+      <Stack>
+        <Typography variant="h6">{value}</Typography>
+        <Typography variant="body2">{field}</Typography>
+      </Stack>
     </Paper>
   );
 };

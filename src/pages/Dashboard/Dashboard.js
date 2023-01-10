@@ -67,7 +67,7 @@ const Dashboard = () => {
             borderRadius: 5,
             background: 'rgba(255, 255, 255, 0.2)',
             backdropFilter: 'blur(2.2rem)',
-            p: { xs: 2, md: 0 },
+            p: { xs: 1, md: 0 },
           }}
         >
           <Box sx={{ width: '100%' }}>

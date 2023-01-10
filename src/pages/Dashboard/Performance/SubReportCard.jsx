@@ -1,6 +1,16 @@
-import { Box, Divider, Paper, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import { colors } from '../../../constants/colors';
 
-const SubReportCard = () => {
+const SubReportCard = ({ el }) => {
+  const mySx = {
+    display: 'flex',
+    p: 1,
+    my: '.2rem',
+    border: 1,
+    borderColor: colors.disabled,
+    borderRadius: 3,
+  };
+
   return (
     <Box
       sx={{
@@ -10,64 +20,60 @@ const SubReportCard = () => {
         m: 1,
       }}
     >
-      <Paper
+      <Box
+        elevation={0}
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          p: 2,
-          minWidth: '18rem',
-          bgcolor: 'transparent',
-          backdropFilter: 'blur(1rem)',
+          justifyContent: 'center',
+          p: 1,
+          maxWidth: '18rem',
+          minHeight: '24rem',
+          borderBottom: 1,
+          borderTop: 1,
+          borderRadius: 4,
         }}
       >
         <Typography
           sx={{ textAlign: 'center', pb: '.5rem' }}
           variant="subtitle2"
         >
-          AgronomyA
+          {el.sub}
         </Typography>
-        <Divider />
-        <Box sx={{ display: 'flex', py: '.5rem' }}>
+        {/* <Divider sx={{mb: 1}} /> */}
+        <Box sx={mySx}>
           <Typography sx={{ flex: 3 }} variant="body2">
-            Total questions
+            Questions
           </Typography>
-          <Typography sx={{ flex: 1 }} variant="body2">
-            100
+          <Typography sx={{ flex: 1, ml: 2 }} variant="body2">
+            {el.to_ques}
           </Typography>
         </Box>
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={mySx}>
           <Typography sx={{ flex: 3 }} variant="body2">
-            Right Answers
+            Correct
           </Typography>
-          <Typography sx={{ flex: 1 }} variant="body2">
-            100
+          <Typography sx={{ flex: 1, ml: 2 }} variant="body2">
+            {el.co_ans}
           </Typography>
         </Box>
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={mySx}>
           <Typography sx={{ flex: 3 }} variant="body2">
-            Wrong Answers
+            Wrong
           </Typography>
-          <Typography sx={{ flex: 1 }} variant="body2">
-            100
+          <Typography sx={{ flex: 1, ml: 2 }} variant="body2">
+            {el.wo_ans}
           </Typography>
         </Box>
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={mySx}>
           <Typography sx={{ flex: 3 }} variant="body2">
             Unanswered
           </Typography>
-          <Typography sx={{ flex: 1 }} variant="body2">
-            100
+          <Typography sx={{ flex: 1, ml: 2 }} variant="body2">
+            {el.un_ans}
           </Typography>
         </Box>
-        <Box sx={{ display: 'flex' }}>
-          <Typography sx={{ flex: 3 }} variant="body2">
-            Result
-          </Typography>
-          <Typography sx={{ flex: 1 }} variant="body2">
-            100
-          </Typography>
-        </Box>
-      </Paper>
+      </Box>
     </Box>
   );
 };

@@ -71,15 +71,8 @@ const BeforeQuiz = () => {
   };
   return (
     <Container>
-      <Stack component="form" maxWidth={400} sx={{ m: 'auto', mt: 4 }}>
-        <Typography
-          color="secondary"
-          variant="body1"
-          component="p"
-          sx={{ textAlign: 'center', my: 2 }}
-        >
-          Start Quiz
-        </Typography>
+      <Stack component="form"  sx={{ m: 'auto'}}>
+        
         <Box sx={{ minWidth: 120, mb: 2 }}>
           <FormControl fullWidth size="small">
             <InputLabel id="demo-simple-select-label">Subject</InputLabel>

@@ -20,7 +20,7 @@ import SignUp from './pages/Auth/SignUp';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Report from './pages/Dashboard/Report/Report';
 import Quiz from './pages/Dashboard/Quiz/Quiz';
-import CrishikaSVG from './test/Test';
+import MyChart from './pages/Dashboard/Performance/Chart'
 
 
 // App wide Theme
@@ -98,7 +98,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/test',
-    element: <CrishikaSVG/>
+    element: <MyChart/>
   },
 
 ])

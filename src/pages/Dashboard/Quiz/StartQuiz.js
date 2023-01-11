@@ -71,9 +71,11 @@ const BeforeQuiz = () => {
   };
   return (
     <Container>
-      <Stack component="form"  sx={{ m: 'auto'}}>
+      <Stack alignItems='center'>
+        <Box>
+
         
-        <Box sx={{ minWidth: 120, mb: 2 }}>
+        <Box sx={{ minWidth: 120, maxWidth: '80%', mb: 2 }}>
           <FormControl fullWidth size="small">
             <InputLabel id="demo-simple-select-label">Subject</InputLabel>
             <Select
@@ -157,6 +159,8 @@ const BeforeQuiz = () => {
         >
           Start
         </Button>
+        </Box>
+
       </Stack>
     </Container>
   );

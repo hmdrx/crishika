@@ -23,7 +23,7 @@ const Performance = () => {
         alignItems="center"
       >
         <Box sx={{ flex: 1 }}>
-          <Box sx={{ textAlign: 'center', mb: 2 }}>
+          <Box sx={{ textAlign: 'center', my: 2 }}>
             <Typography variant="h5">3209</Typography>
             <Typography variant="body2">Questions Attempted</Typography>
             {/* <Divider sx={{ mt: 1 }} /> */}
@@ -33,10 +33,10 @@ const Performance = () => {
             direction="row"
             justifyContent="space-evenly"
             alignItems="center"
-            columnSpacing={1}
+            // columnSpacing={1}
           >
             {cards.map(el => (
-              <OverallReportCard field={el.field} value={el.value} />
+              <OverallReportCard key={el.field} field={el.field} value={el.value} />
             ))}
           </Stack>
         </Box>
@@ -50,7 +50,7 @@ const Performance = () => {
 
       <Grid sx={{ py: 2 }} container columnSpacing={1}>
         {subCard.map(el => (
-          <Grid item xs={6} md={3} key={el}>
+          <Grid key={el.sub} item xs={6} md={3}>
             <SubReportCard el={el} />
           </Grid>
         ))}

@@ -59,6 +59,7 @@ const Dashboard = () => {
   return (
     <DashboardBg>
       <Stack sx={{ minHeight: '100vh', py: { md: 4 } }} alignItems="center">
+
         <Box
           sx={{
             flex: 1,
@@ -70,7 +71,6 @@ const Dashboard = () => {
             p: { xs: 1, md: 0 },
           }}
         >
-          <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
               <Tabs
                 value={value}
@@ -98,8 +98,8 @@ const Dashboard = () => {
                 <AccountDetails />
               </TabPanel>
             </SwipeableViews>
-          </Box>
         </Box>
+
       </Stack>
     </DashboardBg>
   );

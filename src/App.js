@@ -20,7 +20,7 @@ import SignUp from './pages/Auth/SignUp';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Report from './pages/Dashboard/Report/Report';
 import Quiz from './pages/Dashboard/Quiz/Quiz';
-import MyChart from './pages/Dashboard/Performance/Chart'
+import TransitionsModal from './test/Test';
 
 
 // App wide Theme
@@ -28,11 +28,15 @@ const theme = createTheme({
   palette: {
     primary: {
       main: '#25bf77',
-      contrastText: '#fff',
+      contrastText: '#E8E6E6',
     },
     secondary: {
       main: '#da4088',
       contrastText: '#fff',
+    },
+    btnWhiteOutlined: {
+      main: '#ccc',
+      contrastText: '#ccc',
     },
   },
   typography: {
@@ -98,7 +102,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/test',
-    element: <MyChart/>
+    element: <TransitionsModal/>
   },
 
 ])

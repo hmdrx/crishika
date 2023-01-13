@@ -3,7 +3,9 @@ import {
   Button,
   Chip,
   CircularProgress,
-  Container,
+  Divider,
+  IconButton,
+  NativeSelect,
   Stack,
   Typography,
 } from '@mui/material';
@@ -14,11 +16,22 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import InfoIcon from '@mui/icons-material/Info';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { startExam, resetExam } from '../../../redux/question-reducer';
 import { resetResult } from '../../../redux/result-reducer';
 import { useNavigate } from 'react-router-dom';
+import { styled } from '@mui/material/styles';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+
+const CustomWidthTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))({
+  [`& .${tooltipClasses.tooltip}`]: {
+    maxWidth: 180,
+  },
+});
 
 const BeforeQuiz = () => {
   const [sub, setSub] = useState('');
@@ -70,31 +83,41 @@ const BeforeQuiz = () => {
     })();
   };
   return (
-    <Container>
-      <Stack alignItems='center'>
-        <Box>
+    <Stack sx={{ mt: 2 }} alignItems="center">
+      <Box>
+        <Box sx={{ minWidth: { sm: 460, xs: '90vmin' }, mb: 6 }}>
+          <Typography
+            sx={{ bgcolor: '#25BF7744', p: 1, mb: 2, borderRadius: 2 }}
+            variant="body2"
+          >
+            Subject
+          </Typography>
 
-        
-        <Box sx={{ minWidth: 120, maxWidth: '80%', mb: 2 }}>
           <FormControl fullWidth size="small">
-            <InputLabel id="demo-simple-select-label">Subject</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={sub}
-              label="Age"
-              onChange={onSubChange}
-            >
+            <Select value={sub} onChange={onSubChange} displayEmpty>
+              <MenuItem value=''>----Choose----</MenuItem>
               <MenuItem value={0}>Agronomy</MenuItem>
               <MenuItem value={1}>Pathology</MenuItem>
               <MenuItem value={2}>Nematology</MenuItem>
             </Select>
           </FormControl>
         </Box>
-        <Box sx={{ mb: 2 }}>
-          <Typography variant="body2" component="p">
-            Question
-          </Typography>
+        <Box sx={{ mb: 6 }}>
+          <Stack
+            direction="row"
+            sx={{ bgcolor: '#25BF7744', p: 1, mb: 2, borderRadius: 2 }}
+          >
+            <Typography sx={{ mr: 1 }} variant="body2">
+              Question
+            </Typography>
+            <CustomWidthTooltip
+              title="Number of Questions want to attempt"
+              placement="right"
+              arrow
+            >
+              <InfoIcon sx={{color: 'gray'}} fontSize="small" />
+            </CustomWidthTooltip>
+          </Stack>
           <Stack direction="row" justifyContent="space-between">
             <Chip
               label="10"
@@ -116,10 +139,23 @@ const BeforeQuiz = () => {
             />
           </Stack>
         </Box>
-        <Box sx={{ mb: 4 }}>
-          <Typography variant="body2" component="p">
-            Time
-          </Typography>
+        <Box sx={{ mb: 6 }}>
+          <Stack
+            direction="row"
+            sx={{ bgcolor: '#25BF7744', p: 1, mb: 2, borderRadius: 2 }}
+          >
+            <Typography sx={{ mr: 1 }} variant="body2">
+              Time
+            </Typography>
+            <CustomWidthTooltip
+              title="Time need per Question in second"
+              placement="right"
+              arrow
+            >
+              <InfoIcon sx={{color: 'gray'}} fontSize="small" />
+            </CustomWidthTooltip>
+          </Stack>
+
           <Stack direction="row" justifyContent="space-between">
             <Chip
               label="10 s"
@@ -147,8 +183,8 @@ const BeforeQuiz = () => {
           </Alert>
         )}
 
-        {isLoading &&  <CircularProgress />}
-        
+        {isLoading && <CircularProgress />}
+
         <Button
           size="small"
           variant="contained"
@@ -156,13 +192,12 @@ const BeforeQuiz = () => {
           endIcon={<PlayArrowIcon />}
           onClick={startQuizHandler}
           disabled={isLoading}
+          disableElevation
         >
           Start
         </Button>
-        </Box>
-
-      </Stack>
-    </Container>
+      </Box>
+    </Stack>
   );
 };
 

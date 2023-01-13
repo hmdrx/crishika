@@ -21,7 +21,6 @@ const SubReportCard = ({ el }) => {
       }}
     >
       <Box
-        elevation={0}
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -31,6 +30,7 @@ const SubReportCard = ({ el }) => {
           minHeight: '24rem',
           borderBottom: 1,
           borderTop: 1,
+          borderColor: colors.disabled,
           borderRadius: 4,
         }}
       >
@@ -40,7 +40,6 @@ const SubReportCard = ({ el }) => {
         >
           {el.sub}
         </Typography>
-        {/* <Divider sx={{mb: 1}} /> */}
         <Box sx={mySx}>
           <Typography sx={{ flex: 3 }} variant="body2">
             Questions

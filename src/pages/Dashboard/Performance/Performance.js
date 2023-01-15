@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { cards } from '../../../data/data';
 import { performanceInfo } from '../../../redux/performance-reducer';
+import { resetExam } from '../../../redux/question-reducer';
 import MyChart from './Chart';
 import OverallReportCard from './OverallReportCard';
 import SubReportCard from './SubReportCard';
@@ -74,6 +75,7 @@ const Performance = () => {
           un_ans: unAns,
         })
       );
+      dispatch(resetExam())
     }
   }, [answers, dispatch, questions, sub, id]);
 

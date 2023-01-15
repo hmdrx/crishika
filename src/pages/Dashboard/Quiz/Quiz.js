@@ -2,6 +2,7 @@ import { Box, Button, Stack, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import DashboardBg from '../../../components/DashboardBg';
+
 import { nextQues, prevQues } from '../../../redux/question-reducer';
 import { pushAnswer } from '../../../redux/result-reducer';
 import Ques from './Ques';
@@ -10,22 +11,30 @@ const Quiz = () => {
   const { questions, time, trace } = useSelector(state => state.questions);
   const { answers } = useSelector(state => state.result);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const nextQuesHandler = () => {
     if (!answers[trace]) {
       dispatch(pushAnswer('undefined'));
     }
-    if (questions.length === trace + 1) {
-      navigate('/report', {replace: true})
+    if (questions.length <= trace + 1) {
+      
+      navigate('/report', { replace: true });
+
       return;
-    };
+    }
     dispatch(nextQues());
   };
 
   return (
     <DashboardBg>
-      <Stack sx={{ minHeight: {xs: window.innerHeight, md: '100vh'}, py: { md: 8 } }} alignItems="center">
+      <Stack
+        sx={{
+          minHeight: { xs: window.innerHeight, md: '100vh' },
+          py: { md: 8 },
+        }}
+        alignItems="center"
+      >
         <Stack
           sx={{
             flex: 1,

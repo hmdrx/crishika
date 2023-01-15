@@ -3,6 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 export const questionReducer = createSlice({
   name: 'questions',
   initialState: {
+    id: 0,
+    sub: '',
     questions: [],
     options: [],
     correct_answers: [],
@@ -13,6 +15,8 @@ export const questionReducer = createSlice({
     startExam: (state, action) => {
       return {
         ...state,
+        id: action.payload.id,
+        sub: action.payload.sub,
         questions: action.payload.questions,
         options: action.payload.options
       };

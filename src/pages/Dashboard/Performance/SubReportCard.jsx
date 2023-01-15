@@ -26,7 +26,7 @@ const SubReportCard = ({ el }) => {
           flexDirection: 'column',
           justifyContent: 'center',
           p: 1,
-          maxWidth: '18rem',
+          width: '18rem',
           minHeight: '24rem',
           borderBottom: 1,
           borderTop: 1,

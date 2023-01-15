@@ -6,10 +6,18 @@ const OverallReportCard = ({ field, value }) => {
       sx={{
         textAlign: 'center',
         p: 1,
-        mx: 1,
-        bgcolor: ()=>{if(field === 'Correct Answered') {return '#25bf7754'}else if(field === 'Wrong Answered'){return '#ff000054'}else{ return '#66696554' }} ,
-        maxWidth: '10rem',
-        minHeight: '10rem',
+        m: 1,
+        bgcolor: () => {
+          if (field === 'Correct Answered') {
+            return '#25bf7754';
+          } else if (field === 'Wrong Answered') {
+            return '#ff000054';
+          } else {
+            return '#66696554';
+          }
+        },
+        width: '10rem',
+        height: '10rem',
       }}
     >
       <Stack>

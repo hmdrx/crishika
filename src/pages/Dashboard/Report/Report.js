@@ -12,6 +12,7 @@ const Report = () => {
 
   const allCorrectAns = questions.map(el => el.correct_answer);
   const marks = allCorrectAns.filter((ans, i) => ans === answers[i]).length;
+  
   return (
     <DashboardBg>
       <Stack sx={{ minheight: '100vh', p: { md: 4 } }} alignItems="center">

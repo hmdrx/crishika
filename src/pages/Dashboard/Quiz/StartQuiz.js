@@ -6,7 +6,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -31,13 +31,25 @@ const CustomWidthTooltip = styled(({ className, ...props }) => (
 
 const BeforeQuiz = () => {
   const [sub, setSub] = useState('');
-  const [noOfQues, setNoOfQues] = useState(10);
+  const [cat, setCat] = useState();
+  const [noOfQues, setNoOfQues] = useState(5);
   const [time, setTime] = useState(20);
   const [error, setError] = useState({ errorStatus: false, msg: '' });
   const [isLoading, setIsLoading] = useState();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await axios.get('https://opentdb.com/api_category.php');
+        setCat(res.data.trivia_categories);
+      } catch (error) {
+        throw error;
+      }
+    })();
+  }, []);
 
   const onSubChange = event => {
     setSub(event.target.value);
@@ -60,7 +72,7 @@ const BeforeQuiz = () => {
       try {
         setIsLoading(true);
         const { data } = await axios.get(
-          `https://opentdb.com/api.php?amount=${noOfQues}`
+          `https://opentdb.com/api.php?amount=${noOfQues}&category=${sub}`
         );
         const allOptions = data.results.map((el, i) =>
           [...el.incorrect_answers, el.correct_answer]
@@ -69,7 +81,16 @@ const BeforeQuiz = () => {
             .map(el => el.val)
         );
 
-        dispatch(startExam({ questions: data.results, options: allOptions }));
+        const subjectName = cat.find(el => el.id === sub);
+        
+        dispatch(
+          startExam({
+            id: subjectName.id,
+            sub: subjectName.name,
+            questions: data.results,
+            options: allOptions,
+          })
+        );
         navigate('/quiz', { replace: true });
         setIsLoading(false);
       } catch (error) {
@@ -91,10 +112,13 @@ const BeforeQuiz = () => {
 
           <FormControl fullWidth size="small">
             <Select value={sub} onChange={onSubChange} displayEmpty>
-              <MenuItem value=''>----Choose----</MenuItem>
-              <MenuItem value={0}>Agronomy</MenuItem>
-              <MenuItem value={1}>Pathology</MenuItem>
-              <MenuItem value={2}>Nematology</MenuItem>
+              <MenuItem value="">----Choose----</MenuItem>
+              {cat &&
+                cat.map(el => (
+                  <MenuItem key={el.id} value={el.id}>
+                    {el.name}
+                  </MenuItem>
+                ))}
             </Select>
           </FormControl>
         </Box>
@@ -111,26 +135,26 @@ const BeforeQuiz = () => {
               placement="right"
               arrow
             >
-              <InfoIcon sx={{color: 'gray'}} fontSize="small" />
+              <InfoIcon sx={{ color: 'gray' }} fontSize="small" />
             </CustomWidthTooltip>
           </Stack>
           <Stack direction="row" justifyContent="space-between">
             <Chip
-              label="10"
-              variant={noOfQues === 10 ? 'contained' : 'outlined'}
-              onClick={onNoOfQuesChange.bind(this, 10)}
+              label="5"
+              variant={noOfQues === 5 ? 'contained' : 'outlined'}
+              onClick={onNoOfQuesChange.bind(this, 5)}
               sx={{ minWidth: '8rem' }}
             />
             <Chip
-              label="20"
-              variant={noOfQues === 20 ? 'contained' : 'outlined'}
-              onClick={onNoOfQuesChange.bind(this, 20)}
+              label="15"
+              variant={noOfQues === 15 ? 'contained' : 'outlined'}
+              onClick={onNoOfQuesChange.bind(this, 15)}
               sx={{ minWidth: '8rem' }}
             />
             <Chip
-              label="30"
-              variant={noOfQues === 30 ? 'contained' : 'outlined'}
-              onClick={onNoOfQuesChange.bind(this, 30)}
+              label="12"
+              variant={noOfQues === 12 ? 'contained' : 'outlined'}
+              onClick={onNoOfQuesChange.bind(this, 12)}
               sx={{ minWidth: '8rem' }}
             />
           </Stack>
@@ -148,7 +172,7 @@ const BeforeQuiz = () => {
               placement="right"
               arrow
             >
-              <InfoIcon sx={{color: 'gray'}} fontSize="small" />
+              <InfoIcon sx={{ color: 'gray' }} fontSize="small" />
             </CustomWidthTooltip>
           </Stack>
 

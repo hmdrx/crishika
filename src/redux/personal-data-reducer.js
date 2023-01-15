@@ -10,7 +10,7 @@ export const personalDataReducer = createSlice({
     },
     academic: {
       degree: 'B.Sc. Agriculture',
-      status: 'Persuing',
+      status: 'Passout',
       college: 'BTC Collge of Agriculture',
     },
   },

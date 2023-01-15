@@ -1,4 +1,11 @@
-import { Box, Container, Divider, Grid, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  Container,
+  Divider,
+  Grid,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { cards } from '../../../data/data';
@@ -34,7 +41,8 @@ const Performance = () => {
       .reduce((a, c) => a + c, 0);
 
     // in percentage
-    const totalCorrectPercent = (100 * totalCorrect) / totalQuestionsAttempted || 0;
+    const totalCorrectPercent =
+      (100 * totalCorrect) / totalQuestionsAttempted || 0;
     const totalWrongPercent = (100 * totalWrong) / totalQuestionsAttempted || 0;
     const totalUnansweredPercent =
       (100 * totalUnanswered) / totalQuestionsAttempted || 0;
@@ -74,46 +82,49 @@ const Performance = () => {
       <Typography sx={{ textAlign: 'center' }} variant="body1">
         Overall Performance
       </Typography>
-      {performanceData.length > 0 &&
-      <Stack
-        sx={{ py: 2 }}
-        direction={{ xs: 'column-reverse', md: 'row' }}
-        justifyContent="space-around"
-        alignItems="center"
-      >
-        <Box sx={{ flex: 1 }}>
-          <Box sx={{ textAlign: 'center', my: 2 }}>
-            <Typography variant="h5">{totalQuestionsAttempted}</Typography>
-            <Typography variant="body2">Questions Attempted</Typography>
+      {performanceData.length > 0 && (
+        <Stack
+          sx={{ py: 2 }}
+          direction={{ xs: 'column-reverse', md: 'row' }}
+          justifyContent="space-around"
+          alignItems="center"
+        >
+          <Box sx={{ flex: 1 }}>
+            <Box sx={{ textAlign: 'center', my: 2 }}>
+              <Typography variant="h5">{totalQuestionsAttempted}</Typography>
+              <Typography variant="body2">Questions Attempted</Typography>
+            </Box>
+            <Stack
+              sx={{ flexWrap: 'wrap' }}
+              direction="row"
+              justifyContent="space-evenly"
+              alignItems="center"
+            >
+              {['Correct Answered', 'Wrong Answered', 'Unanswered'].map(
+                (el, i) => (
+                  <OverallReportCard
+                    key={el}
+                    field={el}
+                    value={overallValues[i]}
+                  />
+                )
+              )}
+            </Stack>
           </Box>
-          <Stack
-            sx={{ flexWrap: 'wrap' }}
-            direction="row"
-            justifyContent="space-evenly"
-            alignItems="center"
-          >
-            {['Correct Answered', 'Wrong Answered', 'Unanswered'].map(
-              (el, i) => (
-                <OverallReportCard
-                  key={el}
-                  field={el}
-                  value={overallValues[i]}
-                />
-              )
-            )}
+          <Stack sx={{ flex: 1 }} direction="row" justifyContent="center">
+            {<MyChart data={overallPercentage} />}
           </Stack>
-        </Box>
-        <Stack sx={{ flex: 1 }} direction="row" justifyContent="center">
-          {<MyChart data={overallPercentage} />}
         </Stack>
-      </Stack>
-        }
-        {!performanceData.length && (
-        <Typography sx={{ textAlign: 'center', my: 8, color: 'gray' }} variant="body2">
+      )}
+      {!performanceData.length && (
+        <Typography
+          sx={{ textAlign: 'center', my: 8, color: 'gray' }}
+          variant="body2"
+        >
           No overall Record found !!
         </Typography>
       )}
-      <Divider sx={{my: 2}} />
+      <Divider sx={{ my: 2 }} />
       <Typography sx={{ textAlign: 'center' }} variant="body1">
         Subject Wise Report
       </Typography>
@@ -128,7 +139,10 @@ const Performance = () => {
         </Grid>
       )}
       {!performanceData.length && (
-        <Typography sx={{ textAlign: 'center', my: 8, color: 'gray' }} variant="body2">
+        <Typography
+          sx={{ textAlign: 'center', my: 8, color: 'gray' }}
+          variant="body2"
+        >
           No Record !!
         </Typography>
       )}

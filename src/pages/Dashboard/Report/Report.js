@@ -63,7 +63,7 @@ const Report = () => {
             alignItems="center"
           >
             <Link to={'/dashboard'}>
-            <Button  disableElevation disableFocusRipple color='secondary' startIcon={<HomeOutlinedIcon/>} >
+            <Button  disableElevation disableFocusRipple color='secondary' startIcon={<HomeOutlinedIcon />} >
               Home
             </Button>
             </Link>

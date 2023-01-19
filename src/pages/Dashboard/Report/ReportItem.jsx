@@ -8,7 +8,7 @@ import { decode } from 'html-entities';
 
 const ReportItem = ({ ques, quesIndex, ops, ans }) => {
   return (
-    <Paper sx={{bgcolor: '#ffffff33', mt: 2, p: 2 }} elevation={0}>
+    <Paper sx={{ bgcolor: '#ffffff33', mt: 2, p: 2 }} elevation={0}>
       <Stack direction="row">
         <Stack direction="row">
           {ques.correct_answer === ans[quesIndex] && (
@@ -17,13 +17,20 @@ const ReportItem = ({ ques, quesIndex, ops, ans }) => {
           {ques.correct_answer !== ans[quesIndex] &&
             ans[quesIndex] !== 'undefined' && <DangerousIcon color="error" />}
           {'undefined' === ans[quesIndex] && <CircleIcon color="disabled" />}
-          <Typography variant="body1" color={'undefined' === ans[quesIndex] && colors.disabled} >
+          <Typography
+            variant="body1"
+            color={'undefined' === ans[quesIndex] && colors.disabled}
+          >
             {decode('&nbsp')}Q.{quesIndex + 1}
             {decode('&nbsp')}
           </Typography>
         </Stack>
 
-        <Typography variant="body1" component="span" color={'undefined' === ans[quesIndex] && colors.disabled}>
+        <Typography
+          variant="body1"
+          component="span"
+          color={'undefined' === ans[quesIndex] && colors.disabled}
+        >
           {decode(ques.question)}
         </Typography>
       </Stack>
@@ -31,7 +38,7 @@ const ReportItem = ({ ques, quesIndex, ops, ans }) => {
         {ops[quesIndex].map((el, i) => (
           <Grid item xs={6} key={i}>
             <Box sx={{ position: 'relative' }}>
-              {el === ques.correct_answer && ans[quesIndex] !== el &&  (
+              {el === ques.correct_answer && ans[quesIndex] !== el && (
                 <Typography
                   variant="caption"
                   color="white"
@@ -43,29 +50,40 @@ const ReportItem = ({ ques, quesIndex, ops, ans }) => {
                     position: 'absolute',
                     left: 6,
                     top: -12,
-                    bgcolor:'undefined' === ans[quesIndex]  ? colors.disabled : colors.primary,
+                    bgcolor:
+                      'undefined' === ans[quesIndex]
+                        ? colors.disabled
+                        : colors.primary,
                   }}
                 >
                   Answer
                 </Typography>
               )}
-              <Stack  sx={{
+              <Stack
+                sx={{
                   border: 1,
                   borderColor: colors.disabled,
                   borderRadius: 1,
-                  p:1
-                }} direction='row' alignItems='center'>
-
-                <Radio sx={{cursor: 'default', py:0}} disableRipple disabled={'undefined' === ans[quesIndex]} checked={ans[quesIndex] === el} color={el === ques.correct_answer ? 'primary' : 'error'} />
-              <Typography
-                variant="body2"
-                component='span'
-                color={'undefined' === ans[quesIndex] && colors.disabled}
-               
+                  p: 1,
+                }}
+                direction="row"
+                alignItems="center"
+              >
+                <Radio
+                  sx={{ cursor: 'default', py: 0 }}
+                  disableRipple
+                  disabled={'undefined' === ans[quesIndex]}
+                  checked={ans[quesIndex] === el}
+                  color={el === ques.correct_answer ? 'primary' : 'error'}
+                />
+                <Typography
+                  variant="body2"
+                  component="span"
+                  color={'undefined' === ans[quesIndex] && colors.disabled}
                 >
-                {decode(el)}
-              </Typography>
-                  </Stack>
+                  {decode(el)}
+                </Typography>
+              </Stack>
             </Box>
           </Grid>
         ))}

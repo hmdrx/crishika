@@ -22,7 +22,7 @@ import { styled } from '@mui/material/styles';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import { startTimer } from '../../../redux/timer-reducer';
 import { instructions } from '../../../data/instruction';
-import FiberManualRecordOutlinedIcon from '@mui/icons-material/FiberManualRecordOutlined';
+import ArrowRightRoundedIcon from '@mui/icons-material/ArrowRightRounded';
 
 const CustomWidthTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -249,7 +249,7 @@ const BeforeQuiz = () => {
         </Typography>
         {instructions.map((el, i) => (
           <Stack key={i} sx={{ my: 2 }} direction="row">
-            <FiberManualRecordOutlinedIcon fontSize="small" />
+            <ArrowRightRoundedIcon fontSize="small" />
             <Typography variant="body2" component="span">
               {el}
             </Typography>

@@ -36,7 +36,7 @@ const BeforeQuiz = () => {
   const [sub, setSub] = useState('');
   const [cat, setCat] = useState();
   const [noOfQues, setNoOfQues] = useState(10);
-  const [time, setTime] = useState(1);
+  const [time, setTime] = useState(45);
   const [error, setError] = useState({ errorStatus: false, msg: '' });
   const [isLoading, setIsLoading] = useState();
 

@@ -1,6 +1,10 @@
 import { Box, Container, Divider, Stack, Typography } from '@mui/material';
 
 const Footer = () => {
+
+  const date = new Date();
+  const getYear = date.getFullYear();
+
   return (
     <>
       <Box
@@ -78,7 +82,7 @@ const Footer = () => {
             color="white"
             sx={{ display: 'block', textAlign: 'center' }}
           >
-            Copyright Reserved @ Crishika
+            Copyright  &#169; {getYear} All Rights Reserved by Crishika &#8482;
           </Typography>
         </Container>
       </Box>

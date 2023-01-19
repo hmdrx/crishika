@@ -25,9 +25,16 @@ export const timerReducer = createSlice({
         state.minute = 59;
       }
     },
+    resetTimer: state => {
+      return {
+        hour: 0,
+        minute: 0,
+        second: 0,
+      };
+    },
   },
 });
 
-export const { startTimer, decreaseTimer } = timerReducer.actions;
+export const { startTimer, decreaseTimer, resetTimer } = timerReducer.actions;
 
 export default timerReducer.reducer;

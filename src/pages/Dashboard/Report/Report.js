@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Button, Stack, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import DashboardBg from '../../../components/DashboardBg';
 import ReportItem from './ReportItem';
@@ -12,7 +12,7 @@ const Report = () => {
 
   const allCorrectAns = questions.map(el => el.correct_answer);
   const marks = allCorrectAns.filter((ans, i) => ans === answers[i]).length;
-  
+
   return (
     <DashboardBg>
       <Stack sx={{ minheight: '100vh', p: { md: 4 } }} alignItems="center">
@@ -29,10 +29,14 @@ const Report = () => {
             overflow: 'hidden',
           }}
         >
-          <Stack direction="row" alignItems="center" justifyContent='space-between' >
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+          >
             <Typography variant="h5">Quiz report</Typography>
-            <Link to={'/dashboard'} >
-            <HomeOutlinedIcon fontSize="medium" color="secondary" />
+            <Link to={'/dashboard'}>
+              <HomeOutlinedIcon fontSize="medium" color="secondary" />
             </Link>
           </Stack>
           <Stack direction="row" justifyContent="space-between">
@@ -52,6 +56,18 @@ const Report = () => {
               ans={answers}
             />
           ))}
+          <Stack
+            sx={{ mt: 2 }}
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Link to={'/dashboard'}>
+            <Button  disableElevation disableFocusRipple color='secondary' startIcon={<HomeOutlinedIcon/>} >
+              Home
+            </Button>
+            </Link>
+          </Stack>
         </Box>
       </Stack>
     </DashboardBg>

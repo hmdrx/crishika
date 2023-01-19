@@ -6,7 +6,7 @@ import DashboardBg from '../../../components/DashboardBg';
 
 import { nextQues, prevQues } from '../../../redux/question-reducer';
 import { pushAnswer } from '../../../redux/result-reducer';
-import { decreaseTimer } from '../../../redux/timer-reducer';
+import { decreaseTimer, resetTimer } from '../../../redux/timer-reducer';
 import Ques from './Ques';
 import nextSound from '../../../assets/sound/next.wav';
 import timeoutSound from '../../../assets/sound/timeout.mp3';
@@ -43,6 +43,7 @@ const Quiz = () => {
       dispatch(pushAnswer('undefined'));
     }
     if (questions.length <= trace + 1) {
+      dispatch(resetTimer())
       navigate('/report', { replace: true });
       return;
     }

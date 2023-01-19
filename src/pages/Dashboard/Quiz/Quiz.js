@@ -1,30 +1,67 @@
 import { Box, Button, Stack, Typography } from '@mui/material';
+import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import DashboardBg from '../../../components/DashboardBg';
 
 import { nextQues, prevQues } from '../../../redux/question-reducer';
 import { pushAnswer } from '../../../redux/result-reducer';
+import { decreaseTimer } from '../../../redux/timer-reducer';
 import Ques from './Ques';
+import nextSound from '../../../assets/sound/next.wav';
+import timeoutSound from '../../../assets/sound/timeout.mp3';
 
 const Quiz = () => {
-  const { questions, time, trace } = useSelector(state => state.questions);
+  const { questions, trace } = useSelector(state => state.questions);
   const { answers } = useSelector(state => state.result);
+  const { hour, minute, second } = useSelector(state => state.timer);
+
+  const nextAudio = new Audio(nextSound);
+  const endAudio = useMemo(() => new Audio(timeoutSound), [])
+
+  
+  
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    if (hour + minute + second <= 4 && second >= 1) {
+      endAudio.play();
+    }
+    if (hour + minute + second === 0) {
+      questions.map((el, i) => {
+        if (!answers[i]) dispatch(pushAnswer('undefined'));
+        return null;
+      });
+      navigate('/report', { replace: true });
+    }
+  }, [answers, dispatch, hour, minute, second, navigate, questions, endAudio]);
 
   const nextQuesHandler = () => {
     if (!answers[trace]) {
       dispatch(pushAnswer('undefined'));
     }
     if (questions.length <= trace + 1) {
-      
       navigate('/report', { replace: true });
-
       return;
     }
     dispatch(nextQues());
+    nextAudio.play();
   };
+
+  const prevHandler = () => {
+    dispatch(prevQues());
+    nextAudio.play();
+  };
+
+  useEffect(() => {
+    const quizTimer = setInterval(() => {
+      dispatch(decreaseTimer());
+    }, 1000);
+
+    return () => clearInterval(quizTimer);
+  }, [dispatch]);
 
   return (
     <DashboardBg>
@@ -69,12 +106,8 @@ const Quiz = () => {
                 )}
               </Typography>
               <Typography variant="body2" component="p">
-                Time:
-                {time !== null && (
-                  <Typography variant="body2" component="span">
-                    10 minuts
-                  </Typography>
-                )}
+                Time: {('0' + hour).slice(-2)}: {('0' + minute).slice(-2)}:
+                {('0' + second).slice(-2)}
               </Typography>
             </Stack>
             <Ques />
@@ -87,7 +120,7 @@ const Quiz = () => {
                 disableRipple
                 variant="contained"
                 size="small"
-                onClick={() => dispatch(prevQues())}
+                onClick={prevHandler}
               >
                 Previous
               </Button>

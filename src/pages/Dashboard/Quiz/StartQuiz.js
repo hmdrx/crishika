@@ -20,6 +20,9 @@ import { resetResult } from '../../../redux/result-reducer';
 import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import { startTimer } from '../../../redux/timer-reducer';
+import { instructions } from '../../../data/instruction';
+import FiberManualRecordOutlinedIcon from '@mui/icons-material/FiberManualRecordOutlined';
 
 const CustomWidthTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -32,8 +35,8 @@ const CustomWidthTooltip = styled(({ className, ...props }) => (
 const BeforeQuiz = () => {
   const [sub, setSub] = useState('');
   const [cat, setCat] = useState();
-  const [noOfQues, setNoOfQues] = useState(5);
-  const [time, setTime] = useState(20);
+  const [noOfQues, setNoOfQues] = useState(10);
+  const [time, setTime] = useState(1);
   const [error, setError] = useState({ errorStatus: false, msg: '' });
   const [isLoading, setIsLoading] = useState();
 
@@ -82,7 +85,7 @@ const BeforeQuiz = () => {
         );
 
         const subjectName = cat.find(el => el.id === sub);
-        
+
         dispatch(
           startExam({
             id: subjectName.id,
@@ -92,6 +95,18 @@ const BeforeQuiz = () => {
           })
         );
         navigate('/quiz', { replace: true });
+
+        var h = Math.floor((time * noOfQues) / 3600);
+        var m = Math.floor(((time * noOfQues) % 3600) / 60);
+        var s = Math.floor(((time * noOfQues) % 3600) % 60);
+
+        dispatch(
+          startTimer({
+            hour: h,
+            minute: m,
+            second: s,
+          })
+        );
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
@@ -100,9 +115,13 @@ const BeforeQuiz = () => {
     })();
   };
   return (
-    <Stack sx={{ mt: 2 }} alignItems="center">
-      <Box>
-        <Box sx={{ minWidth: { sm: 460, xs: '90vmin' }, mb: 6 }}>
+    <Stack
+      sx={{ mt: 2 }}
+      direction={{ md: 'row' }}
+      justifyContent="space-evenly"
+    >
+      <Box sx={{ flex: 1 }}>
+        <Box sx={{ minWidth: { sm: 460, xs: '80vmin' }, mb: 6 }}>
           <Typography
             sx={{ bgcolor: '#25BF7744', p: 1, mb: 2, borderRadius: 2 }}
             variant="body2"
@@ -133,6 +152,7 @@ const BeforeQuiz = () => {
             <CustomWidthTooltip
               title="Number of Questions want to attempt"
               placement="right"
+              enterTouchDelay={0}
               arrow
             >
               <InfoIcon sx={{ color: 'gray' }} fontSize="small" />
@@ -140,9 +160,9 @@ const BeforeQuiz = () => {
           </Stack>
           <Stack direction="row" justifyContent="space-between">
             <Chip
-              label="5"
-              variant={noOfQues === 5 ? 'contained' : 'outlined'}
-              onClick={onNoOfQuesChange.bind(this, 5)}
+              label="10"
+              variant={noOfQues === 10 ? 'contained' : 'outlined'}
+              onClick={onNoOfQuesChange.bind(this, 10)}
               sx={{ minWidth: '8rem' }}
             />
             <Chip
@@ -152,9 +172,9 @@ const BeforeQuiz = () => {
               sx={{ minWidth: '8rem' }}
             />
             <Chip
-              label="12"
-              variant={noOfQues === 12 ? 'contained' : 'outlined'}
-              onClick={onNoOfQuesChange.bind(this, 12)}
+              label="25"
+              variant={noOfQues === 25 ? 'contained' : 'outlined'}
+              onClick={onNoOfQuesChange.bind(this, 25)}
               sx={{ minWidth: '8rem' }}
             />
           </Stack>
@@ -170,6 +190,7 @@ const BeforeQuiz = () => {
             <CustomWidthTooltip
               title="Time need per Question in second"
               placement="right"
+              enterTouchDelay={0}
               arrow
             >
               <InfoIcon sx={{ color: 'gray' }} fontSize="small" />
@@ -178,21 +199,21 @@ const BeforeQuiz = () => {
 
           <Stack direction="row" justifyContent="space-between">
             <Chip
-              label="10 s"
-              variant={time === 10 ? 'contained' : 'outlined'}
-              onClick={onTimeChange.bind(this, 10)}
-              sx={{ minWidth: '8rem' }}
-            />
-            <Chip
-              label="20 s"
-              variant={time === 20 ? 'contained' : 'outlined'}
-              onClick={onTimeChange.bind(this, 20)}
-              sx={{ minWidth: '8rem' }}
-            />
-            <Chip
               label="30 s"
               variant={time === 30 ? 'contained' : 'outlined'}
               onClick={onTimeChange.bind(this, 30)}
+              sx={{ minWidth: '8rem' }}
+            />
+            <Chip
+              label="45 s"
+              variant={time === 45 ? 'contained' : 'outlined'}
+              onClick={onTimeChange.bind(this, 45)}
+              sx={{ minWidth: '8rem' }}
+            />
+            <Chip
+              label="60 s"
+              variant={time === 60 ? 'contained' : 'outlined'}
+              onClick={onTimeChange.bind(this, 60)}
               sx={{ minWidth: '8rem' }}
             />
           </Stack>
@@ -206,16 +227,34 @@ const BeforeQuiz = () => {
         {isLoading && <CircularProgress />}
 
         <Button
-          size="small"
+          // size="small"
           variant="contained"
           sx={{ alignSelf: 'flex-start' }}
           endIcon={<PlayArrowIcon />}
           onClick={startQuizHandler}
           disabled={isLoading}
           disableElevation
+          fullWidth
         >
           Start
         </Button>
+      </Box>
+      <Box sx={{ flex: 1, ml: { md: 2 }, mt: { xs: 4, md: 0 } }}>
+        <Typography
+          textAlign={{ xs: 'center' }}
+          variant="body1"
+          color="secondary"
+        >
+          Instructions
+        </Typography>
+        {instructions.map((el, i) => (
+          <Stack key={i} sx={{ my: 2 }} direction="row">
+            <FiberManualRecordOutlinedIcon fontSize="small" />
+            <Typography variant="body2" component="span">
+              {el}
+            </Typography>
+          </Stack>
+        ))}
       </Box>
     </Stack>
   );

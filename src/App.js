@@ -21,6 +21,10 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Report from './pages/Dashboard/Report/Report';
 import Quiz from './pages/Dashboard/Quiz/Quiz';
 import TransitionsModal from './test/Test';
+import Admin from './pages/Admin/Admin';
+import User from './pages/Admin/User';
+import Tutor from './pages/Admin/Tutor';
+import Questions from './pages/Admin/Questions';
 
 
 // App wide Theme
@@ -104,6 +108,33 @@ const router = createBrowserRouter([
     path: '/test',
     element: <TransitionsModal/>
   },
+  
+  // admin route
+  {
+      path: '/admin',
+      element: <Admin/>,
+      children: [
+        {index: true,
+      element: <User /> },
+     
+      {
+        path: 'user',
+        element: <User/>
+      },
+      {
+        path: 'tutor',
+        element: <Tutor/>
+      },
+      
+      {
+        path: 'questions',
+        element: <Questions/>
+      },
+      
+     
+      ]
+    },
+
 
 ])
 

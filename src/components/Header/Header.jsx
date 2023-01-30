@@ -17,6 +17,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import SupportAgentOutlinedIcon from '@mui/icons-material/SupportAgentOutlined';
+import { useSelector } from 'react-redux';
 
 const tabsNameAndLink = [
   { tabName: 'Pricing', link: 'pricing' },
@@ -26,6 +27,8 @@ const tabsNameAndLink = [
 
 const Header = () => {
   const [state, setState] = useState(false);
+
+  const auth = useSelector(state=>state.auth.token);
 
   const toggleDrawer = open => event => {
     if (
@@ -71,9 +74,12 @@ const Header = () => {
                 );
               })}
             </Stack>
-            <Link to="/login">
+            {auth ? <Link to="/dashboard">
+              <Button variant="outlined">Dashboard</Button>
+            </Link> :<Link to="/login">
               <Button variant="outlined">Login</Button>
-            </Link>
+            </Link>}
+            
           </Stack>
         </Container>
       </Box>

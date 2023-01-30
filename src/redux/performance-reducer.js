@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const performanceDataReducer = createSlice({
+const performanceDataReducer = createSlice({
   name: 'performanceData',
   initialState: [
     // {

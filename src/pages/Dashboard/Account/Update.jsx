@@ -8,11 +8,9 @@ import Typography from '@mui/material/Typography';
 import { Stack, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import {
-  academicInfo,
-  personalInfo,
-} from '../../../redux/personal-data-reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { personalInfo } from '../../../redux/personal-data-reducer';
+import axios from 'axios';
 
 const style = {
   position: 'absolute',
@@ -29,7 +27,9 @@ const style = {
 };
 
 const Update = ({ heading, open, setOpen, data }) => {
-  const [updatePersonalInfo, setUpdatePersonalInfo] = useState();
+  const [updatePersonalInfo, setUpdatePersonalInfo] = useState({});
+
+  const auth = useSelector(state => state.auth.token);
 
   const dispatch = useDispatch();
 
@@ -37,33 +37,47 @@ const Update = ({ heading, open, setOpen, data }) => {
     setUpdatePersonalInfo(data);
   }, [data]);
 
+  let modPersonalData;
+
+  if (updatePersonalInfo) {
+    modPersonalData = Object.keys(updatePersonalInfo).map(el => ({
+      field: el,
+      value: updatePersonalInfo[el],
+    }));
+  }
+
   const handleClose = () => {
     setOpen(false);
   };
 
   const onChangeHandler = (i, event) => {
-    const val = event.target.value;
-    setUpdatePersonalInfo(prev => {
-      const updatedValue = prev.value.fill(val, i, i + 1);
-      return {
-        ...prev,
-        value: updatedValue,
-      };
-    });
+    const value = event.target.value;
+    const field = event.target.name;
+    setUpdatePersonalInfo(prev => ({
+      ...prev,
+      [field]: value,
+    }));
   };
 
-  const onSaveHandler = () => {
-    const mergedFieldValue = updatePersonalInfo.field.map((el, i) => ({
-      [el]: updatePersonalInfo.value[i],
-    }));
+  const onSaveHandler = async () => {
+    try {
+      const response = await axios.patch(
+        '/api/v1/user/update-account',
+        updatePersonalInfo,
+        {
+          headers: {
+            authorization: `Bearer ${auth}`,
+          },
+        }
+      );
+      if (response.data.user) {
+        dispatch(personalInfo(response.data.user));
+      }
 
-    const toBeUpdateValue = Object.assign(...mergedFieldValue, {});
-    if (heading === 'personal details') {
-      dispatch(personalInfo(toBeUpdateValue));
-    } else {
-      dispatch(academicInfo(toBeUpdateValue));
+      handleClose();
+    } catch (error) {
+      console.log(error);
     }
-    handleClose();
   };
 
   return (
@@ -86,16 +100,17 @@ const Update = ({ heading, open, setOpen, data }) => {
               {heading}
             </Typography>
 
-            {updatePersonalInfo &&
-              updatePersonalInfo.field.map((field, i) => (
+            {modPersonalData &&
+              modPersonalData.map((el, i) => (
                 <TextField
-                  key={field}
-                  label={field}
+                  key={el.field}
+                  label={el.field}
                   margin="normal"
                   fullWidth
                   sx={{ textTransform: 'capitalize' }}
                   size="small"
-                  value={updatePersonalInfo.value[i]}
+                  name={el.field}
+                  value={el.value}
                   onChange={onChangeHandler.bind(this, i)}
                 />
               ))}

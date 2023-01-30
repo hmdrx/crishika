@@ -7,15 +7,18 @@ import Update from './Update';
 const DetailHolder = ({ sectionTitle, data }) => {
   const [open, setOpen] = React.useState(false);
 
-  const personalData = {
-    field: Object.keys(data),
-    value:  Object.values(data),
-  }
-
+  const personalData = Object.keys(data).map(el => {
+    return { field: el, value: data[el] };
+  });
 
   return (
     <>
-      <Update heading={sectionTitle} open={open} setOpen={setOpen} data={personalData} />
+      <Update
+        heading={sectionTitle}
+        open={open}
+        setOpen={setOpen}
+        data={data}
+      />
       <Box
         sx={{
           mx: 1,
@@ -30,7 +33,10 @@ const DetailHolder = ({ sectionTitle, data }) => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography sx={{ fontWeight: '500', textTransform: 'capitalize' }} variant="body1">
+          <Typography
+            sx={{ fontWeight: '500', textTransform: 'capitalize' }}
+            variant="body1"
+          >
             {sectionTitle}
           </Typography>
           <EditIcon
@@ -41,9 +47,9 @@ const DetailHolder = ({ sectionTitle, data }) => {
             sx={{ cursor: 'pointer' }}
           />
         </Stack>
-        {personalData.field.map((el, i) => (
+        {personalData.map(el => (
           <Stack
-          key={el}
+            key={el.field}
             sx={{
               bgcolor: '#25bf7720',
               p: 1,
@@ -53,11 +59,14 @@ const DetailHolder = ({ sectionTitle, data }) => {
             direction="row"
             justifyContent="space-between"
           >
-            <Typography sx={{ flex: 1, textTransform: 'capitalize' }} variant="body2">
-              {el}
+            <Typography
+              sx={{ flex: 1, textTransform: 'capitalize' }}
+              variant="body2"
+            >
+              {el.field}
             </Typography>
             <Typography sx={{ flex: 2 }} variant="body2">
-              {personalData.value[i]}
+              {el.value}
             </Typography>
           </Stack>
         ))}

@@ -4,7 +4,6 @@ import {
   Button,
   IconButton,
   Link,
-  Snackbar,
   TextField,
   Typography,
 } from '@mui/material';
@@ -13,15 +12,14 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import Auth from './Auth';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { showAlert } from '../../redux/alert-reducer';
+import { useDispatch } from 'react-redux';
 const icon = require('../../assets/images/register.png');
 const greetingText = 'Create Your Account Its Free!';
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState({
-    open: false,
-    message: '',
-  });
+
   const [inputs, setInputs] = useState({
     name: '',
     email: '',
@@ -30,6 +28,7 @@ const SignUp = () => {
   });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleClickShowPassword = () => setShowPassword(show => !show);
 
@@ -37,10 +36,6 @@ const SignUp = () => {
     const value = e.target.value;
     const field = e.target.name;
     setInputs(prev => ({ ...prev, [field]: value }));
-  };
-
-  const closeHandler = () => {
-    setError(prev => ({ ...prev, open: false }));
   };
 
   const onRegisterHandler = e => {
@@ -55,11 +50,7 @@ const SignUp = () => {
 
         navigate('/login');
       } catch (error) {
-        setError(prev => ({
-          open: true,
-          message: error.response.data.message,
-        }));
-        // console.log(error.response.data.message);
+        dispatch(showAlert(error.response.data.message));
       }
     })();
   };
@@ -74,12 +65,6 @@ const SignUp = () => {
       link="Login"
       icon={icon}
     >
-      <Snackbar
-        open={error.open}
-        onClose={closeHandler}
-        message={error.message}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-      />
       <Box component="form" maxWidth={'35rem'}>
         <Typography textAlign="center" variant="h6">
           Sign Up

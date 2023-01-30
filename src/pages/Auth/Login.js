@@ -12,23 +12,20 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import {login} from '../../redux/auth-reducer';
+import { login } from '../../redux/auth-reducer';
+import { showAlert } from '../../redux/alert-reducer';
 
 const icon = require('../../assets/images/login.png');
 const greetingText = 'Welcome back!';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [inputs, setInputs] = useState({email: '', password: ''});
+  const [inputs, setInputs] = useState({ email: '', password: '' });
 
   // const auth = useSelector(state=> state.auth);
 
-
-
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
 
   const handleClickShowPassword = () => setShowPassword(show => !show);
 
@@ -36,39 +33,34 @@ const Login = () => {
     event.preventDefault();
   };
 
-  const onInputChangeHandler = (e)=>{
-   
+  const onInputChangeHandler = e => {
+    setInputs(prevVal => ({ ...prevVal, [e.target.name]: e.target.value }));
+  };
 
-    setInputs(prevVal=> ({...prevVal, [e.target.name]: e.target.value}))
-
-  }
-
-  const loginHandler = ()=>{
-
-    (async()=>{
+  const loginHandler = () => {
+    (async () => {
       try {
-        const response = await axios.post('/api/v1/user/login',inputs)
-        if(response){
-          const {token } = response.data;
+        const response = await axios.post('/api/v1/user/login', inputs);
+        if (response) {
+          const { token } = response.data;
 
-          dispatch(login(token))
-          
-          navigate('/dashboard', {replace: true})
+          dispatch(login(token));
+
+          navigate('/dashboard', { replace: true });
         }
-        
       } catch (error) {
-        console.log(error)
-        
+        dispatch(showAlert(error.response.data.message));
       }
-    })()
-
-
-
-
-  }
+    })();
+  };
 
   return (
-    <Auth greetingText={greetingText} linkText="You don't have account? " link='Register' icon={icon}>
+    <Auth
+      greetingText={greetingText}
+      linkText="You don't have account? "
+      link="Register"
+      icon={icon}
+    >
       <Box component="form" maxWidth={'35rem'}>
         <Typography textAlign="center" variant="h6">
           Login
@@ -77,7 +69,7 @@ const Login = () => {
           fullWidth
           margin="dense"
           label="Email"
-          name='email'
+          name="email"
           size="small"
           variant="standard"
           type="email"
@@ -90,7 +82,7 @@ const Login = () => {
           variant="standard"
           margin="dense"
           label="Password"
-          name='password'
+          name="password"
           value={inputs.password}
           onChange={onInputChangeHandler}
           type={showPassword ? 'text' : 'password'}
@@ -102,7 +94,7 @@ const Login = () => {
             alignItems: 'center',
           }}
         >
-           <Link href="#" variant="body2" underline="hover" color="info.main">
+          <Link href="#" variant="body2" underline="hover" color="info.main">
             Forgot Password?
           </Link>
           <IconButton
@@ -112,9 +104,13 @@ const Login = () => {
           >
             {showPassword ? <VisibilityOff /> : <Visibility />}
           </IconButton>
-         
         </Box>
-        <Button fullWidth variant="contained" sx={{ mt: 6 }} onClick={loginHandler}>
+        <Button
+          fullWidth
+          variant="contained"
+          sx={{ mt: 6 }}
+          onClick={loginHandler}
+        >
           Login
         </Button>
       </Box>

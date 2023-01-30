@@ -1,9 +1,12 @@
-import { createTheme, ThemeProvider } from '@mui/material';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createTheme, Snackbar, ThemeProvider } from '@mui/material';
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from 'react-router-dom';
 
 //redux imports
-import { Provider } from 'react-redux';
-import store from './redux/store';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Landing page imports
 import Layout from './pages/LandingPage/Layout';
@@ -25,8 +28,7 @@ import Admin from './pages/Admin/Admin';
 import User from './pages/Admin/User';
 import Tutor from './pages/Admin/Tutor';
 import Questions from './pages/Admin/Questions';
-
-
+import { hideAlert } from './redux/alert-reducer';
 
 // App wide Theme
 const theme = createTheme({
@@ -57,97 +59,112 @@ const theme = createTheme({
   },
 });
 
-
-const router = createBrowserRouter([
-  {
-  // Landing page route
-    path: '/',
-    element: <Layout />,
-    children: [
-      {index: true,
-    element: <Home /> },
-    {
-      path: 'pricing',
-      element: <Pricing/>
-    },
-    {
-      path: 'about_us',
-      element: <AboutUs/>
-    },
-    {
-      path: 'contact',
-      element: <ContactUs/>
-    },
-   
-    ]
-  },
-
-  // Auth route
-  {
-    path: '/login',
-    element: <Login/>
-  },
-  {
-    path: '/register',
-    element: <SignUp/>
-  },
-
-  // Dashboard route
-  {
-    path: '/dashboard',
-    element: <Dashboard/>
-  },
-  {
-    path: '/quiz',
-    element: <Quiz/>
-  },
-  {
-    path: '/report',
-    element: <Report/>
-  },
-  {
-    path: '/test',
-    element: <TransitionsModal/>
-  },
-  
-  // admin route
-  {
-      path: '/admin',
-      element: <Admin/>,
-      children: [
-        {index: true,
-      element: <User /> },
-     
-      {
-        path: 'user',
-        element: <User/>
-      },
-      {
-        path: 'tutor',
-        element: <Tutor/>
-      },
-      
-      {
-        path: 'questions',
-        element: <Questions/>
-      },
-      
-     
-      ]
-    },
-
-
-])
-
-
 function App() {
+  const { open, message } = useSelector(state => state.alert);
+  const auth = useSelector(state => state.auth.token);
+  const dispatch = useDispatch();
+
+  const closeHandler = () => {
+    dispatch(hideAlert());
+  };
+
+  const router = createBrowserRouter([
+    {
+      // Landing page route
+      path: '/',
+      element: !auth ? (
+        <Layout />
+      ) : (
+        <Navigate to={'/dashboard'} replace={true} />
+      ),
+
+      children: [
+        { index: true, element: <Home /> },
+        {
+          path: 'pricing',
+          element: <Pricing />,
+        },
+        {
+          path: 'about_us',
+          element: <AboutUs />,
+        },
+        {
+          path: 'contact',
+          element: <ContactUs />,
+        },
+      ],
+    },
+
+    // Auth route
+    {
+      path: '/login',
+      element: !auth ? (
+        <Login />
+      ) : (
+        <Navigate to={'/dashboard'} replace={true} />
+      ),
+    },
+    {
+      path: '/register',
+      element: !auth ? (
+        <SignUp />
+      ) : (
+        <Navigate to={'/dashboard'} replace={true} />
+      ),
+    },
+
+    // Dashboard route
+    {
+      path: '/dashboard',
+      element: auth ? <Dashboard /> : <Navigate to={'/'} replace={true} />,
+    },
+    {
+      path: '/quiz',
+      element: <Quiz />,
+    },
+    {
+      path: '/report',
+      element: <Report />,
+    },
+    {
+      path: '/test',
+      element: <TransitionsModal />,
+    },
+
+    // admin route
+    {
+      path: '/admin',
+      element: <Admin />,
+      children: [
+        { index: true, element: <User /> },
+
+        {
+          path: 'user',
+          element: <User />,
+        },
+        {
+          path: 'tutor',
+          element: <Tutor />,
+        },
+
+        {
+          path: 'questions',
+          element: <Questions />,
+        },
+      ],
+    },
+  ]);
+
   return (
     <ThemeProvider theme={theme}>
-    <Provider store={store} >
-      <RouterProvider router={router}/>
-    </Provider>
-      </ThemeProvider>
-
+      <Snackbar
+        open={open}
+        onClose={closeHandler}
+        message={message}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      />
+      <RouterProvider router={router} />
+    </ThemeProvider>
   );
 }
 

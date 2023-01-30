@@ -26,6 +26,8 @@ const AccountDetails = () => {
     return obj;
   }, {});
 
+
+
   useEffect(() => {
     (async () => {
       try {

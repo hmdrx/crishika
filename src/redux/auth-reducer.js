@@ -7,11 +7,13 @@ const authReducer = createSlice({
   },
   reducers: {
     login: (state, action) => {
+      state.token = action.payload;
       localStorage.setItem('token', action.payload);
       // state.token = action.payload
     },
     logout: state => {
       localStorage.removeItem('token');
+      state.token = '';
     },
   },
 });

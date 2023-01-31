@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../../redux/auth-reducer';
 import axios from 'axios';
 import { personalInfo } from '../../../redux/personal-data-reducer';
+import { api } from '../../../constants/API';
 
 const AccountDetails = () => {
   const userData = useSelector(state => state.personalData);
@@ -26,17 +27,18 @@ const AccountDetails = () => {
     return obj;
   }, {});
 
-
-
   useEffect(() => {
     (async () => {
       try {
-        const response = await axios.get('/api/v1/user/my-profile', {
-          method: 'GET',
-          headers: {
-            authorization: `Bearer ${auth}`,
-          },
-        });
+        const response = await axios.get(
+          `${api.base_url}/api/v1/user/my-profile`,
+          {
+            method: 'GET',
+            headers: {
+              authorization: `Bearer ${auth}`,
+            },
+          }
+        );
         dispatch(personalInfo(response.data.user));
       } catch (error) {
         console.log(error);

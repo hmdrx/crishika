@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import Auth from './Auth';
+import { api } from '../../constants/API';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -40,7 +41,10 @@ const Login = () => {
   const loginHandler = () => {
     (async () => {
       try {
-        const response = await axios.post('/api/v1/user/login', inputs);
+        const response = await axios.post(
+          `${api.base_url}/api/v1/user/login`,
+          inputs
+        );
         if (response) {
           const { token } = response.data;
 

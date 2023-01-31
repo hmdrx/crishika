@@ -10,6 +10,7 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import Auth from './Auth';
+import { api } from '../../constants/API';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { showAlert } from '../../redux/alert-reducer';
@@ -42,7 +43,10 @@ const SignUp = () => {
     e.preventDefault();
     (async () => {
       try {
-        const response = await axios.post('/api/v1/user/register', inputs);
+        const response = await axios.post(
+          `${api.base_url}/api/v1/user/register`,
+          inputs
+        );
 
         if (response.data) {
           console.log(response.data);

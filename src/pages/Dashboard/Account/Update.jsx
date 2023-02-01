@@ -10,7 +10,8 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { personalInfo } from '../../../redux/personal-data-reducer';
-import axios from 'axios';
+import useHttp from '../../../hooks/use-http';
+import { updateProfile } from '../../../services/accountApi';
 
 const style = {
   position: 'absolute',
@@ -26,16 +27,17 @@ const style = {
   px: 4,
 };
 
-const Update = ({ heading, open, setOpen, data }) => {
+const Update = ({ heading, open, setOpen, userData }) => {
   const [updatePersonalInfo, setUpdatePersonalInfo] = useState({});
+  const { data, loading, request } = useHttp(updateProfile);
 
   const auth = useSelector(state => state.auth.token);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setUpdatePersonalInfo(data);
-  }, [data]);
+    setUpdatePersonalInfo(userData);
+  }, [userData]);
 
   let modPersonalData;
 
@@ -59,25 +61,16 @@ const Update = ({ heading, open, setOpen, data }) => {
     }));
   };
 
-  const onSaveHandler = async () => {
-    try {
-      const response = await axios.patch(
-        '/api/v1/user/update-account',
-        updatePersonalInfo,
-        {
-          headers: {
-            authorization: `Bearer ${auth}`,
-          },
-        }
-      );
-      if (response.data.user) {
-        dispatch(personalInfo(response.data.user));
-      }
-
-      handleClose();
-    } catch (error) {
-      console.log(error);
+  useEffect(() => {
+    if (data) {
+      dispatch(personalInfo(data.user));
     }
+  }, [data, dispatch]);
+
+  const onSaveHandler = async () => {
+    await request(updatePersonalInfo, auth);
+
+    handleClose();
   };
 
   return (
@@ -111,10 +104,14 @@ const Update = ({ heading, open, setOpen, data }) => {
                   size="small"
                   name={el.field}
                   value={el.value}
-                  onChange={onChangeHandler.bind(this, i)}
+                  disabled={el.field === 'email'}
+                  onChange={
+                    el.field === 'email'
+                      ? () => {}
+                      : onChangeHandler.bind(this, i)
+                  }
                 />
               ))}
-
             <Stack sx={{ mt: 2 }} direction="row" justifyContent="flex-end">
               <Button
                 sx={{ mr: 3 }}
@@ -129,7 +126,7 @@ const Update = ({ heading, open, setOpen, data }) => {
                 disableElevation
                 variant="contained"
               >
-                Save
+                {loading ? 'Updating...' : 'Save'}
               </Button>
             </Stack>
           </Box>

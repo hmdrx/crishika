@@ -6,15 +6,14 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Auth from './Auth';
-import { api } from '../../constants/API';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/auth-reducer';
-import { showAlert } from '../../redux/alert-reducer';
+import useHttp from '../../hooks/use-http';
+import { loginApi } from '../../services/authApi';
 
 const icon = require('../../assets/images/login.png');
 const greetingText = 'Welcome back!';
@@ -22,40 +21,28 @@ const greetingText = 'Welcome back!';
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [inputs, setInputs] = useState({ email: '', password: '' });
+  const { data, loading, request } = useHttp(loginApi);
 
-  // const auth = useSelector(state=> state.auth);
+  // const { open } = useSelector(state => state.alert);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleClickShowPassword = () => setShowPassword(show => !show);
 
-  const handleMouseDownPassword = event => {
-    event.preventDefault();
-  };
-
   const onInputChangeHandler = e => {
     setInputs(prevVal => ({ ...prevVal, [e.target.name]: e.target.value }));
   };
 
-  const loginHandler = () => {
-    (async () => {
-      try {
-        const response = await axios.post(
-          `${api.base_url}/api/v1/user/login`,
-          inputs
-        );
-        if (response) {
-          const { token } = response.data;
+  useEffect(() => {
+    if (data) {
+      dispatch(login(data.token));
+      navigate('/dashboard', { replace: true });
+    }
+  }, [data, dispatch, navigate]);
 
-          dispatch(login(token));
-
-          navigate('/dashboard', { replace: true });
-        }
-      } catch (error) {
-        dispatch(showAlert(error.response.data.message));
-      }
-    })();
+  const loginHandler = async () => {
+    await request(inputs);
   };
 
   return (
@@ -104,11 +91,11 @@ const Login = () => {
           <IconButton
             aria-label="toggle password visibility"
             onClick={handleClickShowPassword}
-            onMouseDown={handleMouseDownPassword}
           >
             {showPassword ? <VisibilityOff /> : <Visibility />}
           </IconButton>
         </Box>
+        {loading && <Typography> loading...</Typography>}
         <Button
           fullWidth
           variant="contained"

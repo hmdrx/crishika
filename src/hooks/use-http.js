@@ -1,38 +1,32 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { showAlert } from '../redux/alert-reducer';
 
-const useHttp = ({ url, method, postData }) => {
+const useHttp = apiFunc => {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const auth = useSelector(state => state.auth.token);
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await axios({
-          method: method,
-          url: url,
-          headers: {
-            authorization: `Bearer ${auth}`,
-          },
-          data: {
-            ...postData,
-          },
-        });
+  const dispatch = useDispatch();
 
-        setData(response.data);
+  const request = async (...args) => {
+    setLoading(true);
+    try {
+      const result = await apiFunc(...args);
+      setData(result.data);
+    } catch (error) {
+      dispatch(
+        showAlert(error.response.data.message || 'something went wrong')
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-        setError(error.response.data.message);
-      }
-    })();
-  }, [auth, url, method, postData]);
-
-  return [data, loading, error];
+  return {
+    data,
+    loading,
+    request,
+  };
 };
 
 export default useHttp;

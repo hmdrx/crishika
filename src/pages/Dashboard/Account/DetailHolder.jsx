@@ -2,9 +2,10 @@ import React from 'react';
 
 import { Box, Stack, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import VerifiedIcon from '@mui/icons-material/Verified';
 import Update from './Update';
 
-const DetailHolder = ({ sectionTitle, data }) => {
+const DetailHolder = ({ sectionTitle, data, verifiedUser }) => {
   const [open, setOpen] = React.useState(false);
 
   const personalData = Object.keys(data).map(el => {
@@ -17,7 +18,7 @@ const DetailHolder = ({ sectionTitle, data }) => {
         heading={sectionTitle}
         open={open}
         setOpen={setOpen}
-        data={data}
+        userData={data}
       />
       <Box
         sx={{
@@ -68,6 +69,9 @@ const DetailHolder = ({ sectionTitle, data }) => {
             <Typography sx={{ flex: 2 }} variant="body2">
               {el.value}
             </Typography>
+            {el.field === 'email' && verifiedUser && (
+              <VerifiedIcon sx={{ fontSize: 16 }} />
+            )}
           </Stack>
         ))}
       </Box>

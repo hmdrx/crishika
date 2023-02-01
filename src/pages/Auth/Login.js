@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  IconButton,
-  Link,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, IconButton, Link, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import Auth from './Auth';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -14,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { login } from '../../redux/auth-reducer';
 import useHttp from '../../hooks/use-http';
 import { loginApi } from '../../services/authApi';
+import { LoadingButton } from '@mui/lab';
 
 const icon = require('../../assets/images/login.png');
 const greetingText = 'Welcome back!';
@@ -95,15 +89,17 @@ const Login = () => {
             {showPassword ? <VisibilityOff /> : <Visibility />}
           </IconButton>
         </Box>
-        {loading && <Typography> loading...</Typography>}
-        <Button
-          fullWidth
-          variant="contained"
+
+        <LoadingButton
           sx={{ mt: 6 }}
+          fullWidth
+          size="small"
           onClick={loginHandler}
+          loading={loading}
+          variant="contained"
         >
           Login
-        </Button>
+        </LoadingButton>
       </Box>
     </Auth>
   );

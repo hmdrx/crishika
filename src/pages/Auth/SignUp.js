@@ -1,25 +1,20 @@
-import { useState } from 'react';
-import {
-  Box,
-  Button,
-  IconButton,
-  Link,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Box, IconButton, Link, TextField, Typography } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { LoadingButton } from '@mui/lab';
 
 import Auth from './Auth';
-import { api } from '../../constants/API';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { showAlert } from '../../redux/alert-reducer';
 import { useDispatch } from 'react-redux';
+import useHttp from '../../hooks/use-http';
+import { registerApi } from '../../services/authApi';
 const icon = require('../../assets/images/register.png');
 const greetingText = 'Create Your Account Its Free!';
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const { data, loading, request } = useHttp(registerApi);
 
   const [inputs, setInputs] = useState({
     name: '',
@@ -39,24 +34,15 @@ const SignUp = () => {
     setInputs(prev => ({ ...prev, [field]: value }));
   };
 
-  const onRegisterHandler = e => {
-    e.preventDefault();
-    (async () => {
-      try {
-        const response = await axios.post(
-          `${api.base_url}/api/v1/user/register`,
-          inputs
-        );
+  useEffect(() => {
+    if (data?.status === 'success') {
+      dispatch(showAlert('Signed Up Successfully. Plz login now'));
+      navigate('/login');
+    }
+  }, [data, navigate, dispatch]);
 
-        if (response.data) {
-          console.log(response.data);
-        }
-
-        navigate('/login');
-      } catch (error) {
-        dispatch(showAlert(error.response.data.message));
-      }
-    })();
+  const onRegisterHandler = () => {
+    request(inputs);
   };
 
   // const handleMouseDownPassword = event => {
@@ -141,14 +127,15 @@ const SignUp = () => {
           </IconButton>
         </Box>
 
-        <Button
-          fullWidth
-          variant="contained"
-          sx={{ mt: 6 }}
+        <LoadingButton
+          size="small"
           onClick={onRegisterHandler}
+          // endIcon={<SendIcon />}
+          loading={loading}
+          variant="contained"
         >
           Sign Up
-        </Button>
+        </LoadingButton>
       </Box>
     </Auth>
   );

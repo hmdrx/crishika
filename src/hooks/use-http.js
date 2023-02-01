@@ -17,6 +17,7 @@ const useHttp = apiFunc => {
       dispatch(
         showAlert(error.response.data.message || 'something went wrong')
       );
+      console.log(error);
     } finally {
       setLoading(false);
     }

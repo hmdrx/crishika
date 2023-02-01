@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import DetailHolder from './DetailHolder';
-// import { personalData , academicData} from '../../../data/personalData';
 import Update from './Update';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../../redux/auth-reducer';
@@ -30,10 +29,7 @@ const AccountDetails = () => {
     return obj;
   }, {});
 
-  // const fetchData = useCallback(()=>{
-  //   request(auth);
-
-  // },[])
+ 
 
   useEffect(() => {
     request(auth);
@@ -43,10 +39,6 @@ const AccountDetails = () => {
   useEffect(() => {
     dispatch(personalInfo(data?.user));
   }, [data, dispatch]);
-
-  const loadDataHandler = () => {
-    request(auth);
-  };
 
   const logoutHandler = () => {
     dispatch(logout());
